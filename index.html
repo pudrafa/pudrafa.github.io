@@ -4,9 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pudra Fanki, Portfolio</title>
+<meta name="description" content="Portfolio of Pudra Fanki, graphic designer and video editor in Yogyakarta. UI/UX, brand identity, social media, and video work for banks, SMEs, and local teams.">
+<meta name="theme-color" content="#F2EEE6">
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" id="favjs" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&amp;family=Archivo:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 <style>
 /* ============ TOKENS & RESET ============ */
 :root{
@@ -21,9 +27,10 @@ body{background:var(--paper);color:var(--ink);font-family:var(--sans);overflow-x
 img{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
 button{font-family:inherit;background:none;border:0;color:inherit}
+a,button{-webkit-tap-highlight-color:transparent}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
 
-.grain{position:fixed;inset:-50%;z-index:120;pointer-events:none;opacity:.05;
+.grain{position:fixed;inset:0;z-index:120;pointer-events:none;opacity:.05;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
 
 /* ============ HOME SCROLL LOCK ============ */
@@ -64,8 +71,8 @@ em{font-family:var(--serif);font-style:italic;font-weight:420}
 
 /* ============ HEADER ============ */
 .hdr{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.15rem 0;transition:background .35s var(--easeOut),border-color .35s var(--easeOut);border-bottom:1px solid transparent}
-.hdr.scrolled{background:rgba(242,238,230,.86);backdrop-filter:blur(12px);border-bottom-color:var(--line-soft)}
-.hdr-in{display:flex;align-items:center;justify-content:space-between;width:min(1200px, calc(100% - 2rem));max-width:1200px;margin:0 auto;padding-inline:clamp(1rem,2vw,2rem)}
+.hdr.scrolled{background:rgba(242,238,230,.86);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom-color:var(--line-soft)}
+.hdr-in{display:flex;align-items:center;justify-content:space-between}
 .logo{font:600 .95rem/1 var(--sans);letter-spacing:.02em;display:flex;align-items:flex-start;gap:.25rem}
 .logo .star{width:11px;height:11px;color:var(--accent);margin-top:-2px}
 .nav{display:flex;gap:2.2rem}
@@ -88,9 +95,9 @@ body.menu-open .logo{color:var(--paper)}
 
 .mnav{position:fixed;inset:0;z-index:95;background:var(--ink);color:var(--paper);display:flex;flex-direction:column;justify-content:center;padding:0 8vw;transform:translateY(-102%);transition:transform .65s var(--ease)}
 body.menu-open .mnav{transform:translateY(0)}
-.m-link{display:flex;align-items:baseline;gap:1.2rem;font:400 clamp(2.2rem,9vw,4.2rem)/1.25 var(--serif);padding:.4rem 0;opacity:0;transform:translateY(30px);transition:opacity .5s var(--easeOut),transform .5s var(--easeOut),color .25s var(--easeOut),padding .35s var(--easeOut)}
+.m-link{display:flex;align-items:baseline;gap:1.2rem;font:400 clamp(2.2rem,9vw,4.2rem)/1.25 var(--serif);padding:.4rem 0;opacity:0;transform:translateY(30px);transition:opacity .5s var(--easeOut),transform .5s var(--easeOut),color .25s var(--easeOut)}
 .m-link sup{font:600 .8rem var(--sans);color:var(--accent)}
-.m-link:hover{color:var(--accent);font-style:italic;padding-left:1rem}
+.m-link:hover{color:var(--accent);font-style:italic;transform:translateX(1rem)}
 body.menu-open .m-link{opacity:1;transform:none}
 body.menu-open .m-link:nth-child(1){transition-delay:.15s}
 body.menu-open .m-link:nth-child(2){transition-delay:.22s}
@@ -103,6 +110,8 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
   position: relative;
   overflow: hidden;
   width: 100%;
+  padding: 1.1rem 0;
+  border-block: 1px solid var(--line);
   -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
           mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
 }
@@ -190,8 +199,7 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
 .btn--solid::before{background:var(--accent)}
 .btn--solid:hover{color:var(--paper)}
 
-/* ============ MARQUEE ============ */
-.marquee{border-block:1px solid var(--line);overflow:hidden;padding:1.1rem 0}
+/* ============ MARQUEE (home skills) ============ */
 .mq-track{display:flex;width:max-content}
 .mq-group{display:flex;flex:none;animation:mq 28s linear infinite}
 @keyframes mq{to{transform:translateX(-100%)}}
@@ -200,24 +208,25 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
 
 /* ============ HERO ============ */
 .hero{height:100%;display:flex;flex-direction:column;padding-top:5.2rem}
-.hero-meta{display:flex;justify-content:space-between;gap:1rem;width:min(1200px, calc(100% - 2rem));max-width:1200px;margin:0 auto;padding-inline:clamp(1rem,2vw,2rem)}
-.hero-stage{flex:1;display:flex;align-items:center;position:relative;width:min(1200px, calc(100% - 2rem));max-width:1200px;margin:0 auto;padding-inline:clamp(1rem,2vw,2rem);min-height:0}
+.hero-meta{display:flex;justify-content:space-between;gap:1rem}
+.hero-stage{flex:1;display:flex;align-items:center;position:relative;min-height:0}
 .hero-h{position:relative;z-index:1;width:100%}
 .h-l1{display:flex;align-items:center;gap:1.1rem;font:italic 380 clamp(1.7rem,3.8vw,3.4rem)/1 var(--serif)}
 .h-l1 .star{width:.72em;height:.72em;color:var(--accent)}
 .h-l2{font:500 clamp(2.7rem,10.2vw,9.6rem)/0.95 var(--serif);letter-spacing:-.02em;text-transform:uppercase;font-variation-settings:'opsz' 144;white-space:nowrap}
 
-.float{position:absolute;z-index:2;top:50%;right:clamp(.5rem,4vw,5rem);width:clamp(180px,21vw,300px);
+.float{position:absolute;will-change:transform;z-index:2;top:50%;right:clamp(.5rem,4vw,5rem);width:clamp(180px,21vw,300px);
   margin-top:calc(clamp(180px,21vw,300px) * -0.72)}
 .float-inner{position:relative;border:9px solid var(--paper);background:var(--paper);
   box-shadow:0 34px 60px -22px rgba(25,21,18,.4)}
 .float-inner .plate{aspect-ratio:3/4}
 .tape{position:absolute;z-index:2;top:-13px;left:50%;width:92px;height:27px;transform:translateX(-50%) rotate(-3deg);
   background:rgba(233,227,214,.85);border:1px solid rgba(25,21,18,.08);box-shadow:0 2px 5px rgba(25,21,18,.08)}
+.float-inner .plate{will-change:transform}
 .float-note{position:absolute;left:-52%;bottom:-9%;width:140px;text-align:center;font:italic 430 1.05rem/1.3 var(--serif);transform:rotate(-7deg);color:var(--ink)}
 .float-note svg{width:44px;height:32px;transform:rotate(28deg);margin:0 auto .2rem;display:block}
 
-.hero-bottom{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;padding-bottom:2.2rem;width:min(1200px, calc(100% - 2rem));max-width:1200px;margin:0 auto;padding-inline:clamp(1rem,2vw,2rem)}
+.hero-bottom{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;padding-bottom:2.2rem}
 .hero-intro{max-width:37ch;font-size:1.02rem;line-height:1.7;color:#4B443B}
 .hero-intro strong{font-weight:600;color:var(--ink)}
 .hero-cta{display:flex;gap:.85rem;flex-wrap:wrap}
@@ -229,8 +238,6 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
   padding:clamp(1rem,2.2vw,1.6rem);background:var(--paper-2);color:var(--ink)}
 .plate::before{content:'';position:absolute;inset:0;opacity:.13;pointer-events:none;
   background-image:radial-gradient(currentColor 1.1px,transparent 1.2px);background-size:13px 13px}
-.p-lines::before{background-image:repeating-linear-gradient(45deg,currentColor 0 1.5px,transparent 1.5px 13px)}
-.p-arcs::before{background-image:repeating-radial-gradient(circle at 72% 24%,currentColor 0 1.5px,transparent 1.5px 15px)}
 .p-grid::before{background-image:repeating-linear-gradient(0deg,currentColor 0 1.5px,transparent 1.5px 17px),repeating-linear-gradient(90deg,currentColor 0 1.5px,transparent 1.5px 17px)}
 .p-x::before{background-image:repeating-linear-gradient(45deg,currentColor 0 1.5px,transparent 1.5px 15px),repeating-linear-gradient(-45deg,currentColor 0 1.5px,transparent 1.5px 15px)}
 .plate--ink{background:var(--ink);color:var(--paper)}
@@ -276,19 +283,7 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
 
 /* ============ CLIENTS (About) ============ */
 .clients{margin-top:1.4rem;border-top:1px solid var(--line)}
-.cl-row{display:grid;grid-template-columns:3.4rem 1.1fr 1fr 1.2fr;align-items:center;gap:clamp(1rem,3vw,2.2rem);
-  padding:1.15rem clamp(.2rem,1vw,.8rem);border-bottom:1px solid var(--line)}
-.cl-row:hover{background:rgba(25,21,18,.03)}
-.cl-logo{width:3rem;height:3rem;display:flex;align-items:center;justify-content:center;color:var(--ink)}
 .cl-logo img{display:block;width:100%;height:100%;object-fit:cover;border-radius:.55rem;border:1px solid rgba(25,21,18,.08)}
-.cl-logo svg{width:100%;height:100%}
-.cl-name{font:480 1.2rem/1.2 var(--serif)}
-.cl-dur{font:600 .68rem/1.6 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.cl-pos{font-size:.86rem;color:#4B443B;text-align:right}
-.cl-pos b{display:block;font:600 .62rem/1 var(--sans);letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin-bottom:.25rem}
-
-/* ============ WORK ROWS (kept for discipline pages' list use) ============ */
-.workrows{border-bottom:1px solid var(--line)}
 
 /* ============ FOOTER ============ */
 .footer{border-top:1px solid var(--line);padding:clamp(3rem,6vw,4.5rem) 0 0;margin-top:clamp(3rem,7vw,6rem)}
@@ -313,10 +308,6 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
 .ph-sub{margin-top:1.6rem;font-size:.98rem;line-height:1.7;color:#4B443B;max-width:52ch}
 
 .about-grid{display:grid;grid-template-columns:1fr;gap:0;align-items:start;margin-top:3.5rem;width:100%;max-width:none}
-.collage{position:relative}
-.c-main{position:relative;border:8px solid var(--paper);box-shadow:0 26px 50px -20px rgba(25,21,18,.35);max-width:440px}
-.c-main .plate{aspect-ratio:3/4}
-.c-note{position:absolute;left:-6%;top:-2.2rem;font:italic 430 1rem/1.3 var(--serif);transform:rotate(-4deg)}
 .about-lead{font:420 clamp(1.35rem,2.4vw,1.75rem)/1.45 var(--serif);width:100%;max-width:none;margin:0 0 2rem}
 .about-lead em{color:var(--accent)}
 .about-copy{margin-top:0;font-size:.95rem;line-height:1.75;color:#4B443B;width:100%;max-width:none;display:grid;gap:1rem}
@@ -334,15 +325,6 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
 .tags{display:flex;flex-wrap:wrap;gap:.6rem}
 .tag{border:1px solid var(--line);border-radius:99px;padding:.5rem 1rem;font:500 .74rem/1 var(--sans);letter-spacing:.05em;transition:background .2s var(--easeOut),color .2s var(--easeOut),border-color .2s var(--easeOut)}
 .tag:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.otc{display:flex;gap:clamp(1.2rem,4vw,3rem);align-items:flex-start;flex-wrap:wrap}
-.otc figure{box-shadow:0 18px 36px -16px rgba(25,21,18,.3)}
-.otc-1{width:min(52%,420px)}.otc-1 .plate{aspect-ratio:3/2}
-.otc-2{width:min(34%,270px);margin-top:3.5rem;transform:rotate(2.5deg)}.otc-2 .plate{aspect-ratio:4/5}
-.otc-2 .pl-big{font-size:clamp(1.8rem,3vw,2.6rem)}
-.otc figcaption{margin-top:.7rem;font:italic 420 .88rem/1.4 var(--serif);color:var(--muted)}
-
-.work-note{margin-top:2rem;display:flex;justify-content:flex-end}
-.work-note p{font:italic 420 1.1rem/1.5 var(--serif);color:var(--muted);max-width:32ch;text-align:right}
 .manif{border-top:1px solid var(--line);margin-top:clamp(3.5rem,7vw,6rem);padding-top:clamp(3rem,6vw,5rem);display:flex;flex-direction:column;align-items:center;gap:1.8rem;text-align:center}
 .manif blockquote{font:italic 400 clamp(1.7rem,4.4vw,3.2rem)/1.25 var(--serif);max-width:22ch}
 .manif blockquote em{color:var(--accent)}
@@ -420,8 +402,8 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
 .info-block:first-child{padding-top:0;border-top:0}
 .info-block .label{display:block;margin-bottom:.9rem}
 .info-block p{font-size:.88rem;line-height:1.65;color:#4B443B}
-.soc{display:flex;align-items:center;gap:.5rem;font:italic 430 1.02rem/1 var(--serif);padding:.32rem 0;transition:color .25s var(--easeOut),padding .3s var(--easeOut)}
-.soc:hover{color:var(--accent);padding-left:.5rem}
+.soc{display:flex;align-items:center;gap:.5rem;font:italic 430 1.02rem/1 var(--serif);padding:.32rem 0;transition:color .25s var(--easeOut),transform .3s var(--easeOut)}
+.soc:hover{color:var(--accent);transform:translateX(.5rem)}
 .soc .icon{width:.8rem;height:.8rem;opacity:.55}
 .clockline{display:flex;align-items:baseline;gap:.6rem;font:430 1.5rem/1 var(--serif);font-variant-numeric:tabular-nums}
 .clockline small{font:600 .64rem var(--sans);letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
@@ -449,7 +431,6 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
   .hero-bottom{flex-direction:column;align-items:flex-start;gap:1.4rem;padding-bottom:1.6rem}
   .page-head{padding-top:8rem}
   .about-grid,.contact-grid{grid-template-columns:1fr}
-  .collage{max-width:420px;margin-bottom:2rem}
   .cat-meta{grid-template-columns:1fr;gap:1.1rem}
   .work-note{justify-content:flex-start}
   .work-note p{text-align:left}
@@ -480,10 +461,6 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
   .otc-2{margin-top:1.4rem}
   .foot-grid{grid-template-columns:1fr}
   .ptab-btns label{padding:.58rem 1rem;font-size:.64rem}
-  .cl-row{grid-template-columns:auto 1fr;row-gap:.35rem}
-  .cl-logo{grid-row:span 2;width:2.6rem;height:2.6rem}
-  .cl-dur{grid-column:2}
-  .cl-pos{grid-column:2}
   .pc-bar{padding:.85rem 1rem}
   .pc-meta{display:none}
 }
@@ -492,8 +469,11 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
   .hero-bottom{padding-bottom:1.4rem}
 }
 @media(prefers-reduced-motion:reduce){
-  *{animation-duration:.01ms!important;transition-duration:.01ms!important}
-  .mq-group{animation:none}
+  .spin,.mq-group,.marquee__track,.avail .dot::after{animation:none}
+  .mask-in{animation:none;transform:none}
+  .js [data-rv]{opacity:1;transform:none;transition:none}
+  .wipe{transition:none}
+  .float,.float-inner .plate{transform:none!important}
 }
 
 /* ============ HOVER GATE (touch devices) ============ */
@@ -560,15 +540,13 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
   <section class="site-shell" style="padding-bottom:2rem">
     <div class="about-grid">
       <div>
-        <p class="about-lead" data-rv>I believe that countless small businesses and growing companies just need the right enhancement to scale up and be truly seen. For the past five years, I’ve been helping them do exactly that.</p>
-        <div class="about-copy" data-rv style="--d:.1s">
-        <div class="stats" data-rv style="--d:.15s">
-          <div class="stat"><b>5+</b><span>Years in</span></div>
-          <div class="stat"><b>50+</b><span>Projects shipped</span></div>
-          <div class="stat"><b>20+</b><span>Happy clients</span></div>
+        <p class="about-lead" data-rv>Small businesses and growing companies usually need the same two things: to look credible and to be seen. For the past five years, that’s what I’ve been helping with, first in-house at BPRS HIK MCI and now independently.</p>
+        <div class="stats" data-rv style="--d:.1s">
+          <div class="stat"><b>5+</b><span>Years designing</span></div>
+          <div class="stat"><b>3</b><span>Core disciplines</span></div>
+          <div class="stat"><b>8</b><span>Recent clients</span></div>
         </div>
       </div>
-    </div>
     <div class="sec"><span class="label" data-rv>(Experience)</span>
       <div style="margin-top:1.4rem" data-rv>
         <div class="xp-row"><span class="xp-years">2026 to now</span><span class="xp-role">Independent</span></div>
@@ -586,83 +564,79 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
       <span class="label" data-rv>(Recent clients, freelance)</span>
 
       <div class="marquee" data-rv>
-        <div class="marquee__track clients">
+        <div class="marquee__track">
           <!-- original set -->
           <div class="cl-row">
-            <span class="cl-logo" aria-hidden="true"><img src="logoCMA.png" alt="BPR Chandra Muktiartha" /></span>
+            <span class="cl-logo" aria-hidden="true"><img loading="lazy" decoding="async" src="logoCMA.png" alt="BPR Chandra Muktiartha" /></span>
             <span class="cl-name">BPR Chandra Muktiartha</span>
           </div>
           <div class="cl-row">
-            <span class="cl-logo" aria-hidden="true"><img src="Kiriminaja_logo.png" alt="Kiriminaja logo" /></span>
+            <span class="cl-logo" aria-hidden="true"><img loading="lazy" decoding="async" src="Kiriminaja_logo.png" alt="Kiriminaja logo" /></span>
             <span class="cl-name">Kiriminaja</span>
           </div>
           <div class="cl-row">
-            <span class="cl-logo" aria-hidden="true"><img src="BankDanamon_logo.png" alt="Bank Danamon logo" /></span>
+            <span class="cl-logo" aria-hidden="true"><img loading="lazy" decoding="async" src="BankDanamon_logo.png" alt="Bank Danamon logo" /></span>
             <span class="cl-name">Bank Danamon</span>
           </div>
           <div class="cl-row">
-            <span class="cl-logo" aria-hidden="true"><img src="GriyaPersadaLogo.jpeg" alt="Griya Persada Hotel" /></span>
+            <span class="cl-logo" aria-hidden="true"><img loading="lazy" decoding="async" src="GriyaPersadaLogo.jpeg" alt="Griya Persada Hotel" /></span>
             <span class="cl-name">Griya Persada Hotel</span>
           </div>
           <div class="cl-row">
-            <span class="cl-logo" aria-hidden="true"><img src="9comlogo.jpeg" alt="9Com logo" /></span>
+            <span class="cl-logo" aria-hidden="true"><img loading="lazy" decoding="async" src="9comlogo.jpeg" alt="9Com logo" /></span>
             <span class="cl-name">9 Communications</span>
           </div>
           <div class="cl-row">
-            <span class="cl-logo" aria-hidden="true"><img src="moneelogo.png" alt="Monee logo" /></span>
+            <span class="cl-logo" aria-hidden="true"><img loading="lazy" decoding="async" src="moneelogo.png" alt="Monee logo" /></span>
             <span class="cl-name">Monee</span>
           </div>
           <div class="cl-row">
-            <span class="cl-logo" aria-hidden="true"><img src="LogoIGN.webp" alt="IGN logo" /></span>
+            <span class="cl-logo" aria-hidden="true"><img loading="lazy" decoding="async" src="LogoIGN.webp" alt="IGN logo" /></span>
             <span class="cl-name">International Global Network</span>
           </div>
           <div class="cl-row">
-            <span class="cl-logo" aria-hidden="true"><img src="Armoura.webp" alt="Armoura logo" /></span>
+            <span class="cl-logo" aria-hidden="true"><img loading="lazy" decoding="async" src="Armoura.webp" alt="Armoura logo" /></span>
             <span class="cl-name">Armoura</span>
           </div>
 
           <!-- duplicate set for seamless loop -->
           <div class="cl-row" aria-hidden="true">
-            <span class="cl-logo"><img src="logoCMA.png" alt="" /></span>
+            <span class="cl-logo"><img loading="lazy" decoding="async" src="logoCMA.png" alt="" /></span>
             <span class="cl-name">BPR Chandra Muktiartha</span>
           </div>
           <div class="cl-row" aria-hidden="true">
-            <span class="cl-logo"><img src="Kiriminaja_logo.png" alt="" /></span>
+            <span class="cl-logo"><img loading="lazy" decoding="async" src="Kiriminaja_logo.png" alt="" /></span>
             <span class="cl-name">Kiriminaja</span>
           </div>
           <div class="cl-row" aria-hidden="true">
-            <span class="cl-logo"><img src="BankDanamon_logo.png" alt="" /></span>
+            <span class="cl-logo"><img loading="lazy" decoding="async" src="BankDanamon_logo.png" alt="" /></span>
             <span class="cl-name">Bank Danamon</span>
           </div>
           <div class="cl-row" aria-hidden="true">
-            <span class="cl-logo"><img src="GriyaPersadaLogo.jpeg" alt="" /></span>
+            <span class="cl-logo"><img loading="lazy" decoding="async" src="GriyaPersadaLogo.jpeg" alt="" /></span>
             <span class="cl-name">Griya Persada Hotel</span>
           </div>
           <div class="cl-row" aria-hidden="true">
-            <span class="cl-logo"><img src="9comlogo.jpeg" alt="" /></span>
+            <span class="cl-logo"><img loading="lazy" decoding="async" src="9comlogo.jpeg" alt="" /></span>
             <span class="cl-name">9 Communications</span>
           </div>
           <div class="cl-row" aria-hidden="true">
-            <span class="cl-logo"><img src="moneelogo.png" alt="" /></span>
+            <span class="cl-logo"><img loading="lazy" decoding="async" src="moneelogo.png" alt="" /></span>
             <span class="cl-name">Monee</span>
           </div>
           <div class="cl-row" aria-hidden="true">
-            <span class="cl-logo"><img src="LogoIGN.webp" alt="" /></span>
+            <span class="cl-logo"><img loading="lazy" decoding="async" src="LogoIGN.webp" alt="" /></span>
             <span class="cl-name">International Global Network</span>
           </div>
           <div class="cl-row" aria-hidden="true">
-            <span class="cl-logo"><img src="Armoura.webp" alt="" /></span>
+            <span class="cl-logo"><img loading="lazy" decoding="async" src="Armoura.webp" alt="" /></span>
             <span class="cl-name">Armoura</span>
           </div>
         </div>
       </div>
+      <span class="label" data-rv style="margin-top:1.2rem">Message me for freelance project details</span>
     </div>
-      <span class="label" data-rv>Message me for details about the freelance project</span>
-
     </div>
-
-
-      </div></div>
   </section>
 </section>
 
@@ -686,14 +660,12 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
           </span></span>
           <span class="pc-bar">
             <span class="pc-name">UI/UX</span>
-            <span class="pc-meta"> 2025 - present</span>
+            <span class="pc-meta">2025 to present</span>
             <span class="pc-tgl"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span>
           </span>
         </summary>
         <div class="pc-body">
-          <p>Crafting digital experiences for both web and mobile apps. It spans everything from initial research and wireframes to the final pixels and design systems—sprinkled with experimental 'vibe coding' for that extra dynamic feel.</p>
-          <div class="pc-list">
-          </div>
+          <p>Websites and apps for banks and small teams, from first research and wireframes to final pixels and design systems, with a fair share of experimental 'vibe coding' in the mix.</p>
           <div class="pc-foot">
             <span class="pc-tools">Figma · VS Code · AI</span>
             <a class="btn btn--solid" href="#ui-ux"><span>Open UI/UX</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
@@ -716,9 +688,7 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
           </span>
         </summary>
         <div class="pc-body">
-          <p>Building complete visual ecosystems across digital and print. This includes brand identities, social media development, editorial books, leaflets, and banners.</p>
-          <div class="pc-list">
-          </div>
+          <p>Brand identities, social media content, editorial books, leaflets, and banners, in print and on screen.</p>
           <div class="pc-foot">
             <span class="pc-tools">Illustrator · Canva · Photoshop</span>
             <a class="btn btn--solid" href="#graphic-design"><span>Open Graphic Design</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
@@ -741,9 +711,7 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
           </span>
         </summary>
         <div class="pc-body">
-          <p>Motion-driven editing for SMEs, corporate brands, and digital campaigns. Combining precise cuts with dynamic graphics—if a keyframe doesn't add value to the story, it doesn't make the cut.</p>
-          <div class="pc-list">
-          </div>
+          <p>Editing for SMEs, corporate brands, and digital campaigns. If a keyframe doesn't add value to the story, it doesn't make the cut.</p>
           <div class="pc-foot">
             <span class="pc-tools">Premiere Pro · After Effects</span>
             <a class="btn btn--solid" href="#video-editing"><span>Open Video Editing</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
@@ -770,7 +738,7 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
       <svg class="icon" viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button>
     </div>
     <div class="contact-grid">
-      <form class="form" id="cform" action="mailto:pudra.fanki@gmail.com" method="post" enctype="text/plain" novalidate data-rv>
+      <form class="form" id="cform" novalidate data-rv>
         <span class="label">(Tell me about it)</span>
         <div class="field" id="f-name"><label for="in-name">Your name</label>
           <input id="in-name" name="name" type="text" autocomplete="name" placeholder="Nama Saya">
@@ -815,7 +783,7 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
     <p class="label ph-eyebrow" data-rv style="--d:.05s">(01 / 04 / UI/UX)</p>
     <h1 class="ph-title"><span class="mask"><span class="mask-in">UI/UX</span></span>
     <span class="mask"><span class="mask-in"><em>interfaces that feel inevitable</em></span></span></h1>
-    <p class="ph-sub" data-rv style="--d:.1s">Product design from first sketch to shipped screen. Research, flows, wireframes, pixels, and the design systems that keep everything honest.</p>
+    <p class="ph-sub" data-rv style="--d:.1s">Product design from first sketch to shipped screen: research, flows, wireframes, pixels, and the design systems that keep everything honest.</p>
     <dl class="cat-meta" data-rv style="--d:.15s">
       <div><dt>Services</dt><dd>Apps · Web</dd></div>
       <div><dt>Tools</dt><dd>Figma · Vibe Coding</dd></div>
@@ -825,14 +793,14 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
   <section class="projects wrap">
 
     <article class="project wide" data-rv>
-      <div class="frame"><img class="project-image" src="CMA_Project.webp" alt="Pudra Fanki in his design studio"></div>
+      <div class="frame"><img class="project-image" loading="lazy" decoding="async" src="CMA_Project.webp" alt="BPR Chandra Muktiartha website shown on desktop and phone"></div>
       <div class="cap"><div class="cap-l"><span class="cap-num">01</span><h3>BPR Chandra Muktiartha's Website</h3></div><span class="cap-year">2026</span></div>
       <div class="ptabs">
-        <input class="s" type="radio" name="pt-broadcast" id="pt-broadcast-s">
-        <input class="p" type="radio" name="pt-broadcast" id="pt-broadcast-p" checked>
+        <input class="s" type="radio" name="pt-cma" id="pt-cma-s">
+        <input class="p" type="radio" name="pt-cma" id="pt-cma-p" checked>
         <div class="ptab-btns">
-          <label class="s-l" for="pt-broadcast-s">Story</label>
-          <label class="p-l" for="pt-broadcast-p">The Product</label>
+          <label class="s-l" for="pt-cma-s">Story</label>
+          <label class="p-l" for="pt-cma-p">The Product</label>
         </div>
         <div class="ppanel p-story"><p>Built in 6 weeks, this website simply makes it easier for people to connect with their bank. It provides a clear, reliable channel for daily loan and deposit inquiries, alongside direct customer support. A straightforward solution that helped build a more professional and trusted digital presence.</p></div>
         <div class="ppanel p-prod"><dl class="pfacts">
@@ -845,16 +813,16 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
     </article>
 
     <article class="project wide" data-rv>
-      <div class="frame"><img class="project-image" src="broadcast_app.webp" alt="Pudra Fanki in his design studio"></div>
+      <div class="frame"><img class="project-image" loading="lazy" decoding="async" src="broadcast_app.webp" alt="Broadcast App interface for WhatsApp messaging"></div>
       <div class="cap"><div class="cap-l"><span class="cap-num">02</span><h3>Broadcast App</h3></div><span class="cap-year">2026</span></div>
       <div class="ptabs">
-        <input class="s" type="radio" name="pt-bpr" id="pt-bpr-s">
-        <input class="p" type="radio" name="pt-bpr" id="pt-bpr-p" checked>
+        <input class="s" type="radio" name="pt-broadcast" id="pt-broadcast-s">
+        <input class="p" type="radio" name="pt-broadcast" id="pt-broadcast-p" checked>
         <div class="ptab-btns">
-          <label class="s-l" for="pt-bpr-s">Story</label>
-          <label class="p-l" for="pt-bpr-p">The Product</label>
+          <label class="s-l" for="pt-broadcast-s">Story</label>
+          <label class="p-l" for="pt-broadcast-p">The Product</label>
         </div>
-        <div class="ppanel p-story"><p>Developed an internal WhatsApp broadcast tool in response to new Meta regulations. Through continuous iteration—from simplifying data input via .xlsx uploads to integrating image support—the app evolved into a highly reliable daily tool. Its practical success eventually led to cross-department adoption, expanding its use to automate customer billing notifications.</p></div>
+        <div class="ppanel p-story"><p>Developed an internal WhatsApp broadcast tool in response to new Meta regulations. Through continuous iteration, from .xlsx uploads for data input to image support, the app became a reliable daily tool. Its practical success eventually led to cross-department adoption, expanding its use to automate customer billing notifications.</p></div>
         <div class="ppanel p-prod"><dl class="pfacts">
           <div><dt>Role</dt><dd>Product Designer</dd></div>
           <div><dt>Deliverables</dt><dd>Personal Computer, and Laptop</dd></div>
@@ -865,7 +833,7 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
     </article>
 
     <article class="project wide" data-rv>
-      <div class="frame"><img class="project-image" src="project game.webp" alt="Pudra Fanki in his design studio"></div>
+      <div class="frame"><img class="project-image" loading="lazy" decoding="async" src="project game.webp" alt="Children's game project interface"></div>
       <div class="cap"><div class="cap-l"><span class="cap-num">03</span><h3>Game Project</h3></div><span class="cap-year">2026</span></div>
       <div class="ptabs">
         <input class="s" type="radio" name="game" id="game-s">
@@ -874,18 +842,18 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
           <label class="s-l" for="game-s">Story</label>
           <label class="p-l" for="game-p">The Product</label>
         </div>
-        <div class="ppanel p-story"><p>An ongoing children's game project currently in active development. The core process relies on continuous iteration, balancing fun and safety by actively gathering direct feedback from both the kids playing it and the parents guiding them. Its a work-in-progress dedicated to getting the experience just right for both audiences.</p></div>
+        <div class="ppanel p-story"><p>An ongoing children's game project currently in active development. The core process relies on continuous iteration, balancing fun and safety by actively gathering direct feedback from both the kids playing it and the parents guiding them. It's a work in progress, dedicated to getting the experience right for both audiences.</p></div>
         <div class="ppanel p-prod"><dl class="pfacts">
           <div><dt>Role</dt><dd>Product Designer</dd></div>
           <div><dt>Deliverables</dt><dd>Tablet, Laptop, and Phone</dd></div>
           <div><dt>Tools</dt><dd>GLM 5.2</dd></div>
-          <div><dt>Result</dt><dd>on going project <a href="https://tinyurl.com/game-prvw" target="_blank" rel="noopener noreferrer">can be found here</a></dd></div>
+          <div><dt>Result</dt><dd>ongoing project <a href="https://tinyurl.com/game-prvw" target="_blank" rel="noopener noreferrer">can be found here</a></dd></div>
         </dl></div>
       </div>
     </article>
 
     <article class="project wide" data-rv>
-      <div class="frame"><img class="project-image" src="App Kunjungan.webp" alt="Pudra Fanki in his design studio"></div>
+      <div class="frame"><img class="project-image" loading="lazy" decoding="async" src="App Kunjungan.webp" alt="Field visit tracking app interface"></div>
       <div class="cap"><div class="cap-l"><span class="cap-num">04</span><h3>Visiting Apps</h3></div><span class="cap-year">2026</span></div>
       <div class="ptabs">
         <input class="s" type="radio" name="visit" id="visit-s">
@@ -905,7 +873,7 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
     </article>
 
     <article class="project wide" data-rv>
-      <div class="frame"><img class="project-image" src="UX Desain Review.webp" alt="Pudra Fanki in his design studio"></div>
+      <div class="frame"><img class="project-image" loading="lazy" decoding="async" src="UX Desain Review.webp" alt="UI/UX review and redesign concept for Bima Mobile App"></div>
       <div class="cap"><div class="cap-l"><span class="cap-num">05</span><h3>UX Design Review</h3></div><span class="cap-year">2025</span></div>
       <div class="ptabs">
         <input class="s" type="radio" name="UXrvw" id="UXrvw-s">
@@ -914,18 +882,18 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
           <label class="s-l" for="UXrvw-s">Story</label>
           <label class="p-l" for="UXrvw-p">The Product</label>
         </div>
-        <div class="ppanel p-story"><p>Despite its massive footprint across Central Java and DIY, Bank Jateng's digital interface felt slightly behind modern competitors. In this UI/UX review, I modernized the visual language and restructured the transaction flow—proposing features designed to make daily transactions up to 20% faster. I also optimized the placement for campaigns and latest news, ensuring users stay informed without disrupting their core banking experience. My review can be found <a href="https://drive.google.com/file/d/1tpx141hL3ahqcYnBaLGF28dO5VavRaWs/view" target="_blank" rel="noopener noreferrer">here</a></p></div>
+        <div class="ppanel p-story"><p>Despite its massive footprint across Central Java and DIY, Bank Jateng's digital interface felt slightly behind modern competitors. In this UI/UX review, I modernized the visual language and restructured the transaction flow, proposing features designed to make daily transactions up to 20% faster. I also optimized the placement for campaigns and latest news, ensuring users stay informed without disrupting their core banking experience. My review can be found <a href="https://drive.google.com/file/d/1tpx141hL3ahqcYnBaLGF28dO5VavRaWs/view" target="_blank" rel="noopener noreferrer">here</a></p></div>
         <div class="ppanel p-prod"><dl class="pfacts">
           <div><dt>Role</dt><dd>UX Designer</dd></div>
           <div><dt>Deliverables</dt><dd>Phone</dd></div>
           <div><dt>Tools</dt><dd>Figma</dd></div>
-          <div><dt>Result</dt><dd> 20% faster transactions • Modernized UI layout <a href="https://www.figma.com/proto/qalXRBhqVBlUyxx68KuW66/Recreate-Bima-Monile?node-id=20-110&t=4RQjx0OQgYxR5hRc-1&starting-point-node-id=20%3A110" target="_blank" rel="noopener noreferrer">can be found here</a></dd></div>
+          <div><dt>Result</dt><dd> 20% faster transactions • Modernized UI layout <a href="https://www.figma.com/proto/qalXRBhqVBlUyxx68KuW66/Recreate-Bima-Monile?node-id=20-110&amp;t=4RQjx0OQgYxR5hRc-1&amp;starting-point-node-id=20%3A110" target="_blank" rel="noopener noreferrer">can be found here</a></dd></div>
         </dl></div>
       </div>
     </article>
 
     <article class="project wide" data-rv>
-      <div class="frame"><img class="project-image" src="Football Apps.webp" alt="Pudra Fanki in his design studio"></div>
+      <div class="frame"><img class="project-image" loading="lazy" decoding="async" src="Football Apps.webp" alt="Football app screens for Liga 4 supporters"></div>
       <div class="cap"><div class="cap-l"><span class="cap-num">06</span><h3>Football Apps</h3></div><span class="cap-year">2025</span></div>
       <div class="ptabs">
         <input class="s" type="radio" name="Ftblapp" id="Ftblapp-s">
@@ -934,18 +902,18 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
           <label class="s-l" for="Ftblapp-s">Story</label>
           <label class="p-l" for="Ftblapp-p">The Product</label>
         </div>
-        <div class="ppanel p-story"><p>A 2025 bootcamp project driven by the "Support Your Local Team" campaign. Recognizing that Liga 4 Indonesia fans often struggle to find reliable match schedules, I designed this app to bring local clubs closer to their supporters. It serves as a dedicated digital space providing accessible match updates and strengthening the bond between the team and its community. My review can be found <a href="https://www.canva.com/design/DAG2AcZu6-U/Ng5H6KJg4Vcb8Q-4x-i-CA/view?utm_content=DAG2AcZu6-U&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h535238b9b8" target="_blank" rel="noopener noreferrer">here</a></p></div>
+        <div class="ppanel p-story"><p>A 2025 bootcamp project driven by the "Support Your Local Team" campaign. Recognizing that Liga 4 Indonesia fans often struggle to find reliable match schedules, I designed this app to bring local clubs closer to their supporters. It serves as a dedicated digital space providing accessible match updates and strengthening the bond between the team and its community. My review can be found <a href="https://www.canva.com/design/DAG2AcZu6-U/Ng5H6KJg4Vcb8Q-4x-i-CA/view?utm_content=DAG2AcZu6-U&amp;utm_campaign=designshare&amp;utm_medium=link2&amp;utm_source=uniquelinks&amp;utlId=h535238b9b8" target="_blank" rel="noopener noreferrer">here</a></p></div>
         <div class="ppanel p-prod"><dl class="pfacts">
           <div><dt>Role</dt><dd>UIUX Designer</dd></div>
           <div><dt>Deliverables</dt><dd>Phone</dd></div>
           <div><dt>Tools</dt><dd>Figma</dd></div>
-          <div><dt>Result</dt><dd> 2025 Bootcamp Project • Fan engagement focus</a></dd></div>
+          <div><dt>Result</dt><dd>2025 Bootcamp Project • Fan engagement focus</dd></div>
         </dl></div>
       </div>
     </article>
 
     <article class="project wide" data-rv>
-      <div class="frame"><img class="project-image" src="MCI WEB.webp" alt="Pudra Fanki in his design studio"></div>
+      <div class="frame"><img class="project-image" loading="lazy" decoding="async" src="MCI WEB.webp" alt="BPR HIK MCI website homepage"></div>
       <div class="cap"><div class="cap-l"><span class="cap-num">07</span><h3>BPR HIK MCI's Website</h3></div><span class="cap-year">2025</span></div>
       <div class="ptabs">
         <input class="s" type="radio" name="MCI" id="MCI-s">
@@ -954,7 +922,7 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
           <label class="s-l" for="MCI-s">Story</label>
           <label class="p-l" for="MCI-p">The Product</label>
         </div>
-        <div class="ppanel p-story"><p>The company's original website was underperforming and struggled with strict financial publication regulations. Through extensive discussions and design iterations, I completely revamped the platform. The new site not only ensures full regulatory compliance but also introduces structured news placements and a direct Click-to-WhatsApp (CTWA) channel. Post-launch, regulatory issues were entirely resolved, and the site now drives consistent product inquiries and seamless customer support.</a></p></div>
+        <div class="ppanel p-story"><p>The company's original website was underperforming and struggled with strict financial publication regulations. Through extensive discussions and design iterations, I completely revamped the platform. The new site meets the publication regulations, adds structured news placements, and opens a direct Click-to-WhatsApp (CTWA) channel. Since launch, the regulatory issues are gone, and the site brings in steady product inquiries and support requests.</p></div>
         <div class="ppanel p-prod"><dl class="pfacts">
           <div><dt>Role</dt><dd>UIUX Designer</dd></div>
           <div><dt>Deliverables</dt><dd>Personal Computer and Phone</dd></div>
@@ -978,7 +946,7 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
     <p class="label ph-eyebrow" data-rv style="--d:.05s">(02 / 04 / Graphic Design)</p>
     <h1 class="ph-title"><span class="mask"><span class="mask-in">Graphic Design</span></span>
     <span class="mask"><span class="mask-in"><em>from print to digital presence</em></span></span></h1>
-    <p class="ph-sub" data-rv style="--d:.1s">End-to-end graphic design solutions spanning editorial print, digital platforms, and social media campaigns. Built to remain consistent and impactful across every medium.</p>
+    <p class="ph-sub" data-rv style="--d:.1s">Editorial print, digital platforms, and social media campaigns, built to stay consistent across every medium.</p>
     <dl class="cat-meta" data-rv style="--d:.15s">
       <div><dt>Services</dt><dd>Identity · Social Media · Marketing Toolkit</dd></div>
       <div><dt>Tools</dt><dd>Photoshop · Canva · Illustrator</dd></div>
@@ -988,8 +956,8 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
   <section class="projects wrap">
 
     <article class="project wide" data-rv>
-      <div class="frame"><img class="project-image" src="Sosmed Proj.webp" alt="Pudra Fanki in his design studio"></div>
-      <div class="cap"><div class="cap-l"><span class="cap-num">01</span><h3>Social Media Campaign</h3></div><span class="cap-year">2021 - 2026</span></div>
+      <div class="frame"><img class="project-image" loading="lazy" decoding="async" src="Sosmed Proj.webp" alt="Social media campaign designs for client Instagram accounts"></div>
+      <div class="cap"><div class="cap-l"><span class="cap-num">01</span><h3>Social Media Campaign</h3></div><span class="cap-year">2021 to 2026</span></div>
       <div class="ptabs">
         <input class="s" type="radio" name="socmed" id="socmed-s">
         <input class="p" type="radio" name="socmed" id="socmed-p" checked>
@@ -1000,14 +968,14 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
           <div><dt>Role</dt><dd>Graphic Designer</dd></div>
           <div><dt>Deliverables</dt><dd>Instagram</dd></div>
           <div><dt>Tools</dt><dd>Canva / Photoshop</dd></div>
-          <div><dt>Result</dt><dd>Better content formatting • Improved engagement</a></dd></div>
+          <div><dt>Result</dt><dd>Better content formatting • Improved engagement</dd></div>
         </dl></div>
       </div>
     </article>
 
 
         <article class="project wide" data-rv>
-      <div class="frame"><img class="project-image" src="Onlinecampaign.webp" alt="Pudra Fanki in his design studio"></div>
+      <div class="frame"><img class="project-image" loading="lazy" decoding="async" src="Onlinecampaign.webp" alt="Internal communication campaign materials"></div>
       <div class="cap"><div class="cap-l"><span class="cap-num">02</span><h3>Internal Communication</h3></div><span class="cap-year">2022</span></div>
       <div class="ptabs">
         <input class="s" type="radio" name="olcampaign" id="olcampaign-s">
@@ -1019,7 +987,7 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
           <div><dt>Role</dt><dd>Graphic Designer</dd></div>
           <div><dt>Deliverables</dt><dd>Internal Campaign Materials</dd></div>
           <div><dt>Tools</dt><dd>Canva / Photoshop</dd></div>
-          <div><dt>Result</dt><dd>High employee engagement • Clear internal communication</a></dd></div>
+          <div><dt>Result</dt><dd>High employee engagement • Clear internal communication</dd></div>
         </dl></div>
       </div>
     </article>
@@ -1027,8 +995,8 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
 
 
             <article class="project wide" data-rv>
-      <div class="frame"><img class="project-image" src="flyer.webp" alt="Pudra Fanki in his design studio"></div>
-      <div class="cap"><div class="cap-l"><span class="cap-num">03</span><h3>Promotional Design</h3></div><span class="cap-year">2021 - 2026</span></div>
+      <div class="frame"><img class="project-image" loading="lazy" decoding="async" src="flyer.webp" alt="Promotional flyers, brochures, and banners"></div>
+      <div class="cap"><div class="cap-l"><span class="cap-num">03</span><h3>Promotional Design</h3></div><span class="cap-year">2021 to 2026</span></div>
       <div class="ptabs">
         <input class="s" type="radio" name="flyer" id="flyer-s">
         <input class="p" type="radio" name="flyer" id="flyer-p" checked>
@@ -1039,15 +1007,15 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
           <div><dt>Role</dt><dd>Graphic Designer</dd></div>
           <div><dt>Deliverables</dt><dd>Flyer, Brochure, Banner, etc</dd></div>
           <div><dt>Tools</dt><dd>Photoshop</dd></div>
-          <div><dt>Result</dt><dd>Effective local promotion • Ready-to-print materials</a></dd></div>
+          <div><dt>Result</dt><dd>Effective local promotion • Ready-to-print materials</dd></div>
         </dl></div>
       </div>
     </article>
 
 
             <article class="project wide" data-rv>
-      <div class="frame"><img class="project-image" src="infogrph.webp" alt="Pudra Fanki in his design studio"></div>
-      <div class="cap"><div class="cap-l"><span class="cap-num">04</span><h3>Infographic</h3></div><span class="cap-year">2021 - 2026</span></div>
+      <div class="frame"><img class="project-image" loading="lazy" decoding="async" src="infogrph.webp" alt="Infographic designs"></div>
+      <div class="cap"><div class="cap-l"><span class="cap-num">04</span><h3>Infographic</h3></div><span class="cap-year">2021 to 2026</span></div>
       <div class="ptabs">
         <input class="s" type="radio" name="infogrph" id="infogrph-s">
         <input class="p" type="radio" name="infogrph" id="infogrph-p" checked>
@@ -1058,7 +1026,7 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
           <div><dt>Role</dt><dd>Graphic Designer</dd></div>
           <div><dt>Deliverables</dt><dd>Infographic</dd></div>
           <div><dt>Tools</dt><dd>Photoshop</dd></div>
-          <div><dt>Result</dt><dd>Clear internal communication • Visual representation of complex information</a></dd></div>
+          <div><dt>Result</dt><dd>Clear internal communication • Visual representation of complex information</dd></div>
         </dl></div>
       </div>
     </article>
@@ -1066,8 +1034,8 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
 
 
       <article class="project wide" data-rv>
-      <div class="frame"><img class="project-image" src="branding.webp" alt="Pudra Fanki in his design studio"></div>
-      <div class="cap"><div class="cap-l"><span class="cap-num">05</span><h3>Branding Toolkit</h3></div><span class="cap-year">2025 - 2026</span></div>
+      <div class="frame"><img class="project-image" loading="lazy" decoding="async" src="branding.webp" alt="Branding toolkit and printed merchandise"></div>
+      <div class="cap"><div class="cap-l"><span class="cap-num">05</span><h3>Branding Toolkit</h3></div><span class="cap-year">2025 to 2026</span></div>
       <div class="ptabs">
         <input class="s" type="radio" name="brndg" id="brndg-s">
         <input class="p" type="radio" name="brndg" id="brndg-p" checked>
@@ -1078,7 +1046,7 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
           <div><dt>Role</dt><dd>Graphic Designer</dd></div>
           <div><dt>Deliverables</dt><dd>Printing Materials</dd></div>
           <div><dt>Tools</dt><dd>Illustrator / Photoshop</dd></div>
-          <div><dt>Result</dt><dd>Tangible brand assets • Consistent merchandise design</a></dd></div>
+          <div><dt>Result</dt><dd>Tangible brand assets • Consistent merchandise design</dd></div>
         </dl></div>
       </div>
     </article>
@@ -1097,7 +1065,7 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
     <p class="label ph-eyebrow" data-rv style="--d:.05s">(03 / 04 / Video Editing)</p>
     <h1 class="ph-title"><span class="mask"><span class="mask-in">Video Editing</span></span>
     <span class="mask"><span class="mask-in"><em>the story is in the cut</em></span></span></h1>
-    <p class="ph-sub" data-rv style="--d:.1s">Motion-driven editing for SMEs, corporate brands, and digital campaigns. Combining precise cuts with dynamic graphics—if a keyframe doesn't add value to the story, it doesn't make the cut.</p>
+    <p class="ph-sub" data-rv style="--d:.1s">Editing for SMEs, corporate brands, and digital campaigns. If a keyframe doesn't add value to the story, it doesn't make the cut.</p>
     <dl class="cat-meta" data-rv style="--d:.15s">
       <div><dt>Services</dt><dd>Motion Graphics · Music · Brand</dd></div>
       <div><dt>Tools</dt><dd>Premiere Pro · After Effects</dd></div>
@@ -1107,7 +1075,7 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
   <section class="projects wrap">
 
       <article class="project wide" data-rv>
-      <div class="frame"><img class="project-image" src="Music Video 2.webp" alt="Pudra Fanki in his design studio"></div>
+      <div class="frame"><img class="project-image" loading="lazy" decoding="async" src="Music Video 2.webp" alt="Music video still"></div>
       <div class="cap"><div class="cap-l"><span class="cap-num">01</span><h3>Music Video Project</h3></div><span class="cap-year">2023</span></div>
       <div class="ptabs">
         <input class="s" type="radio" name="mv2" id="mv2-s">
@@ -1127,7 +1095,7 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
 
 
       <article class="project wide" data-rv>
-      <div class="frame"><img class="project-image" src="motion.webp" alt="Pudra Fanki in his design studio"></div>
+      <div class="frame"><img class="project-image" loading="lazy" decoding="async" src="motion.webp" alt="Motion graphics still"></div>
       <div class="cap"><div class="cap-l"><span class="cap-num">02</span><h3>Motion Graphics Project</h3></div><span class="cap-year">2022</span></div>
       <div class="ptabs">
         <input class="s" type="radio" name="motion" id="motion-s">
@@ -1146,7 +1114,7 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
 
 
       <article class="project wide" data-rv>
-      <div class="frame"><img class="project-image" src="logo___paragon_1756880734-2.webp" alt="Pudra Fanki in his design studio"></div>
+      <div class="frame"><img class="project-image" loading="lazy" decoding="async" src="logo___paragon_1756880734-2.webp" alt="After movie event coverage still"></div>
       <div class="cap"><div class="cap-l"><span class="cap-num">03</span><h3>After Movie Project</h3></div><span class="cap-year">2021</span></div>
       <div class="ptabs">
         <input class="s" type="radio" name="aftermovie" id="aftermovie-s">
@@ -1164,7 +1132,7 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
     </article>
 
       <article class="project wide" data-rv>
-      <div class="frame"><img class="project-image" src="Music Video 1.webp" alt="Pudra Fanki in his design studio"></div>
+      <div class="frame"><img class="project-image" loading="lazy" decoding="async" src="Music Video 1.webp" alt="Music video still from 2021 project"></div>
       <div class="cap"><div class="cap-l"><span class="cap-num">04</span><h3>Music Video Project</h3></div><span class="cap-year">2021</span></div>
       <div class="ptabs">
         <input class="s" type="radio" name="mv1" id="mv1-s">
@@ -1183,7 +1151,7 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
 
 
           <article class="project wide" data-rv>
-      <div class="frame"><img class="project-image" src="Testimoni.webp" alt="Pudra Fanki in his design studio"></div>
+      <div class="frame"><img class="project-image" loading="lazy" decoding="async" src="Testimoni.webp" alt="Client testimonial video still"></div>
       <div class="cap"><div class="cap-l"><span class="cap-num">05</span><h3>Testimonial Video</h3></div><span class="cap-year">2020</span></div>
       <div class="ptabs">
         <input class="s" type="radio" name="testi" id="testi-s">
@@ -1211,7 +1179,7 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
       <span class="label" data-rv>My Work, 2017 to now</span>
       <span class="label" data-rv style="--d:.1s">Yogyakarta, ID · 110°23′29″ E, 7°48′02″ S </span>
     </div>
-    <div class="hero-stage">
+    <div class="hero-stage wrap">
       <h1 class="hero-h">
         <span class="mask"><span class="mask-in h-l1"><em>My</em><svg class="star spin" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5v21M1.5 12h21M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/></svg></span></span>
         <span class="mask"><span class="mask-in h-l2">Portfolio</span></span>
@@ -1221,14 +1189,14 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
           <span class="tape"></span>
           <div class="plate plate--portrait">
             <span class="pl-ring"></span>
-            <img src="photo.webp" alt="Pudra Fanki portrait" style="display:block;width:100%;height:100%;object-fit:cover;" />
+            <img src="photo.webp" alt="Pudra Fanki portrait" fetchpriority="high" style="display:block;width:100%;height:100%;object-fit:cover;" />
           </div>
           <span class="float-note"><svg viewBox="0 0 60 40"><path d="M6 34C18 28 34 18 46 6m0 0l-10 2m10-2l-2 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>hi, that&rsquo;s me</span>
         </div>
       </div>
     </div>
     <div class="wrap hero-bottom">
-      <p class="hero-intro" data-rv style="--d:.2s">I&rsquo;m <strong>Pudra Fanki</strong>. I elevate SMEs through purposeful design and visual storytelling. I offer over five years of expertise in graphic design, video production, and comprehensive creative solutions to solve your unique business challenges and drive growth.</p>
+      <p class="hero-intro" data-rv style="--d:.2s">I&rsquo;m <strong>Pudra Fanki</strong>, a graphic designer and video editor in Yogyakarta. I started in 2017 cutting videos for local TV, and since 2020 I&rsquo;ve designed websites, brand identities, and social media content for banks and small businesses.</p>
       <div class="hero-cta" data-rv style="--d:.32s">
         <a class="btn btn--solid" href="#portfolio"><span>View the portfolio</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
         <a class="btn" href="#contact"><span>Get in touch</span></a>
@@ -1257,7 +1225,7 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
 <footer class="footer"><div class="wrap">
   <div class="foot-grid">
     <div class="foot-brand"><div class="foot-logo">Pudra Fanki<svg class="star spin" viewBox="0 0 24 24"><path d="M12 1.5v21M1.5 12h21M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/></svg></div>
-      <p>I elevate SMEs through purposeful design and visual storytelling. Over five years of expertise in graphic design, video production, and comprehensive creative solutions to solve your unique business challenges and drive growth.</p></div>
+      <p>Graphic designer and video editor in Yogyakarta. Websites, brand identities, social media, and video for banks and small businesses.</p></div>
     <div class="foot-col"><span class="label">Menu</span>
       <a href="#home">Home</a><a href="#about">About</a><a href="#portfolio">Portfolio</a><a href="#contact">Contact</a></div>
     <div class="foot-col"><span class="label">Elsewhere</span>
@@ -1268,7 +1236,7 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
       <p style="margin-top:.9rem;font-size:.82rem;color:var(--muted)">Local time, <span data-clock>--:--:--</span></p>
       <button class="totop" id="totop">Back to top <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
   </div>
-  <div class="foot-bottom"><span>© 2025 Pudra Fanki. Designed &amp; built by hand.</span><span>Build v7 · antislop + animation review pass</span></div>
+  <div class="foot-bottom"><span>© 2026 Pudra Fanki. Designed &amp; built by hand.</span><span>Made in Yogyakarta</span></div>
 </div></footer>
 
 <div id="toasts" aria-live="polite"></div>
@@ -1286,17 +1254,6 @@ window.addEventListener('error', function(){
 /* ================= HELPERS ================= */
 const $  = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
-
-/* ============ CLEAN-URL SUPPORT (for when this is hosted) ============
-   If a host serves index.html for every path (see rewrite rules in
-   the deployment notes), /uiux, /about etc. route automatically. */
-(function(){
-  const seg = location.pathname.replace(/\/+$/,'').split('/').pop().toLowerCase().replace(/\.html?$/,'');
-  const MAP = {'uiux':'ui-ux','ui-ux':'ui-ux','graphicdesign':'graphic-design','graphic-design':'graphic-design',
-               'videoediting':'video-editing','video-editing':'video-editing',
-               'about':'about','portfolio':'portfolio','contact':'contact'};
-  if(MAP[seg]) history.replaceState(null,'','#'+MAP[seg]);
-})();
 
 /* ================= PAGE NAVIGATION ================= */
 const PAGE_IDS = ['home','about','portfolio','contact','ui-ux','graphic-design','video-editing'];
@@ -1326,6 +1283,7 @@ document.addEventListener('click', e=>{
   const cur = currentId();
   if(id === cur){ e.preventDefault(); window.scrollTo({top:0, behavior:'smooth'}); return; }
   e.preventDefault();
+  if(REDUCED){ location.hash = id; return; }
   document.body.classList.remove('locked');
   wipeLabel.textContent = LABELS[id] || 'My Portfolio';
   wipe.classList.remove('top');
@@ -1373,14 +1331,11 @@ function initForm(){
     check(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim()), '#f-email');
     check(msg.value.trim().length > 9, '#f-msg');
     if(!ok){ toast('Almost there, a couple of fields need love.'); return; }
-    const btn = $('#sendBtn'), span = btn.querySelector('span');
-    btn.disabled = true; span.textContent = 'Sending…';
-    setTimeout(()=>{
-      toast('Message sent. I\u2019ll reply within 48 hours.');
-      span.textContent = 'Sent, thank you';
-      form.reset();
-      setTimeout(()=>{ span.textContent = 'Send it'; btn.disabled = false; }, 2600);
-    }, 900);
+    const type = form.querySelector('input[name="ptype"]:checked');
+    const subject = encodeURIComponent('Project inquiry: ' + (type ? type.value : 'General'));
+    const body = encodeURIComponent('Name: ' + name.value.trim() + '\nEmail: ' + email.value.trim() + '\n\n' + msg.value.trim());
+    toast('Opening your email app\u2026');
+    location.href = 'mailto:pudra.fanki@gmail.com?subject=' + subject + '&body=' + body;
   });
   form.querySelectorAll('input,textarea').forEach(el=>
     el.addEventListener('input', ()=> el.closest('.field')?.classList.remove('err')));
@@ -1404,22 +1359,56 @@ document.addEventListener('click', e=>{
 /* ================= FLOATING PORTRAIT (home only, pointer:fine gated) ================= */
 const FINE = matchMedia('(hover: hover) and (pointer: fine)').matches;
 const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const floatEl = $('#float'), floatPlate = floatEl ? floatEl.querySelector('.plate') : null;
 let mx = innerWidth/2, my = innerHeight/2;
 if(FINE && !REDUCED) addEventListener('pointermove', e=>{ mx = e.clientX; my = e.clientY; });
 
-let fx = 0, fy = 0, fr = 0, ix = 0, iy = 0;
-(function loop(t){
-  const fl = $('#float');
-  if(fl && FINE && !REDUCED && currentId() === 'home'){
-    const nx = mx/innerWidth - .5, ny = my/innerHeight - .5;
-    fx += (nx*90 - fx)*.06; fy += (ny*70 - fy)*.06; fr += (nx*6 - fr)*.06;
-    ix += (nx*-14 - ix)*.08; iy += (ny*-10 - iy)*.08;
-    fl.style.transform = 'translate3d('+fx+'px,'+(fy + Math.sin(t/900)*7)+'px,0) rotate('+fr+'deg)';
-    const pl = fl.querySelector('.plate');
-    if(pl) pl.style.transform = 'translate3d('+(ix*.5)+'px,'+(iy*.5)+'px,0)';
+let fx = 0, fy = 0, fr = 0, ix = 0, iy = 0, floatRaf = null;
+function floatLoop(t){
+  floatRaf = null;
+  if(!FINE || REDUCED || document.hidden || currentId() !== 'home' || !floatEl) return;
+  const nx = mx/innerWidth - .5, ny = my/innerHeight - .5;
+  fx += (nx*90 - fx)*.06; fy += (ny*70 - fy)*.06; fr += (nx*6 - fr)*.06;
+  ix += (nx*-14 - ix)*.08; iy += (ny*-10 - iy)*.08;
+  floatEl.style.transform = 'translate3d('+fx+'px,'+(fy + Math.sin(t/900)*7)+'px,0) rotate('+fr+'deg)';
+  if(floatPlate) floatPlate.style.transform = 'translate3d('+(ix*.5)+'px,'+(iy*.5)+'px,0)';
+  floatRaf = requestAnimationFrame(floatLoop);
+}
+function kickFloat(){ if(!floatRaf) floatRaf = requestAnimationFrame(floatLoop); }
+document.addEventListener('visibilitychange', kickFloat);
+addEventListener('hashchange', kickFloat);
+kickFloat();
+
+/* ================= FAVICON: orange asterisk, slowly spinning in the tab ================= */
+(function(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const cvs = document.createElement('canvas'); cvs.width = 64; cvs.height = 64;
+  const ctx = cvs.getContext('2d'); if(!ctx) return;
+  document.querySelectorAll('link[rel="icon"]').forEach(l=>{ if(l.id !== 'favjs') l.remove(); });
+  let ang = 0, timer = null;
+  function draw(){
+    ang += Math.PI/36;  /* 5 deg per frame: one full turn every 6s */
+    ctx.clearRect(0,0,64,64);
+    ctx.fillStyle = '#F2EEE6';
+    ctx.beginPath();
+    if(ctx.roundRect) ctx.roundRect(0,0,64,64,14); else ctx.rect(0,0,64,64);
+    ctx.fill();
+    ctx.strokeStyle = '#E0492B'; ctx.lineWidth = 6.7; ctx.lineCap = 'round';
+    for(let i = 0; i < 4; i++){
+      const a = ang + i * Math.PI/4;
+      ctx.beginPath();
+      ctx.moveTo(32 - Math.cos(a)*22.4, 32 - Math.sin(a)*22.4);
+      ctx.lineTo(32 + Math.cos(a)*22.4, 32 + Math.sin(a)*22.4);
+      ctx.stroke();
+    }
+    const link = document.getElementById('favjs');
+    if(link){ link.type = 'image/png'; link.href = cvs.toDataURL('image/png'); }
   }
-  requestAnimationFrame(loop);
-})(0);
+  function start(){ if(!timer) timer = setInterval(draw, 84); }
+  function stop(){ clearInterval(timer); timer = null; }
+  document.addEventListener('visibilitychange', ()=> document.hidden ? stop() : start());
+  start();
+})();
 
 /* ================= CHROME ================= */
 addEventListener('scroll', ()=> $('#hdr').classList.toggle('scrolled', scrollY > 12), {passive:true});
