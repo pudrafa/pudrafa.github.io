@@ -1,160 +1,1441 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Pudra's Portfolio</title>
-  <meta name="description" content="">
-  <meta name="keywords" content="">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pudra Fanki, Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS & RESET ============ */
+:root{
+  --paper:#F2EEE6; --paper-2:#E9E3D6; --ink:#191512; --accent:#E0492B;
+  --muted:#7C7268; --line:rgba(25,21,18,.16); --line-soft:rgba(25,21,18,.09);
+  --serif:'Fraunces',Georgia,serif; --sans:'Archivo',Helvetica,sans-serif;
+  --ease:cubic-bezier(.76,0,.24,1); --easeOut:cubic-bezier(.16,1,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:var(--ink);color:var(--paper)}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;background:none;border:0;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
 
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+.grain{position:fixed;inset:-50%;z-index:120;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+/* ============ HOME SCROLL LOCK ============ */
+body.locked{overflow:hidden !important;height:100vh;height:100dvh;overscroll-behavior:none}
+body:has(#home:target){overflow:hidden !important;height:100vh;height:100dvh}
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+/* ============ UTILITIES ============ */
+.wrap,.site-shell{width:min(1200px, calc(100% - 2rem));max-width:1200px;margin:0 auto;padding-inline:clamp(1rem,2vw,2rem)}
+.label{font:600 .68rem/1.4 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+em{font-family:var(--serif);font-style:italic;font-weight:420}
+.star{stroke:currentColor;stroke-width:2.6;fill:none;stroke-linecap:round}
+.spin{animation:spin 14s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.icon{width:1em;height:1em;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
 
-  <!-- Main CSS File -->
-  <link href="assets/css/main.css" rel="stylesheet">
+.mask{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
+.mask-in{display:inline-block;transform:translateY(118%);animation:rise .95s var(--easeOut) forwards}
+.mask:nth-child(2) .mask-in{animation-delay:.14s}
+@keyframes rise{to{transform:translateY(0)}}
 
-  <!-- =======================================================
-  * Template Name: FolioOne
-  * Template URL: https://bootstrapmade.com/folioone-bootstrap-portfolio-website-template/
-  * Updated: Aug 23 2025 with Bootstrap v5.3.7
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+.js [data-rv]{opacity:0;transform:translateY(20px);
+  transition:opacity .6s var(--easeOut) var(--d,0s),transform .6s var(--easeOut) var(--d,0s)}
+.js [data-rv].rv-in{opacity:1;transform:none}
+
+/* ============ CSS-ONLY PAGE ROUTING ============ */
+.page{display:none}
+#home{display:block;overflow:hidden;height:100vh;height:100svh}
+.page:target{display:block;height:auto;overflow:visible}
+.page:target ~ #home{display:none}
+
+/* ============ PAGE WIPE ============ */
+.wipe{position:fixed;inset:0;z-index:150;background:var(--ink);display:flex;align-items:center;justify-content:center;
+  transform:scaleY(0);transform-origin:bottom;transition:transform .62s var(--ease);pointer-events:none}
+.wipe.show{transform:scaleY(1);pointer-events:all}
+.wipe.top{transform-origin:top}
+.wipe-inner{display:flex;align-items:center;gap:1rem;color:var(--paper);font:italic 420 1.5rem/1 var(--serif)}
+.wipe-inner .star{width:22px;height:22px;color:var(--accent)}
+
+/* ============ HEADER ============ */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.15rem 0;transition:background .35s var(--easeOut),border-color .35s var(--easeOut);border-bottom:1px solid transparent}
+.hdr.scrolled{background:rgba(242,238,230,.86);backdrop-filter:blur(12px);border-bottom-color:var(--line-soft)}
+.hdr-in{display:flex;align-items:center;justify-content:space-between;width:min(1200px, calc(100% - 2rem));max-width:1200px;margin:0 auto;padding-inline:clamp(1rem,2vw,2rem)}
+.logo{font:600 .95rem/1 var(--sans);letter-spacing:.02em;display:flex;align-items:flex-start;gap:.25rem}
+.logo .star{width:11px;height:11px;color:var(--accent);margin-top:-2px}
+.nav{display:flex;gap:2.2rem}
+.nav a{font:600 .74rem/1 var(--sans);letter-spacing:.13em;text-transform:uppercase;color:var(--muted);display:flex;gap:.35rem;transition:color .25s var(--easeOut);position:relative;padding:.4rem 0}
+.nav a sup{font-size:.55rem;color:var(--accent);top:-.3em;position:relative}
+.nav a::after{content:'';position:absolute;left:0;bottom:0;width:100%;height:1.5px;background:var(--ink);transform:scaleX(0);transform-origin:right;transition:transform .4s var(--ease)}
+.nav a:hover{color:var(--ink)}
+.nav a:hover::after{transform:scaleX(1);transform-origin:left}
+.nav a.on{color:var(--ink)}
+.nav a.on::after{transform:scaleX(1)}
+.burger{display:none;width:30px;height:22px;position:relative;z-index:110;cursor:pointer}
+.burger span{position:absolute;left:0;width:100%;height:2px;background:var(--ink);transition:transform .4s var(--ease),background .25s var(--easeOut);top:8px}
+.burger span:first-child{transform:translateY(-5px)}
+.burger span:last-child{transform:translateY(5px)}
+body.menu-open .burger span{background:var(--paper)}
+body.menu-open .burger span:first-child{transform:rotate(45deg)}
+body.menu-open .burger span:last-child{transform:rotate(-45deg)}
+body.menu-open .hdr{background:transparent;border-color:transparent;backdrop-filter:none}
+body.menu-open .logo{color:var(--paper)}
+
+.mnav{position:fixed;inset:0;z-index:95;background:var(--ink);color:var(--paper);display:flex;flex-direction:column;justify-content:center;padding:0 8vw;transform:translateY(-102%);transition:transform .65s var(--ease)}
+body.menu-open .mnav{transform:translateY(0)}
+.m-link{display:flex;align-items:baseline;gap:1.2rem;font:400 clamp(2.2rem,9vw,4.2rem)/1.25 var(--serif);padding:.4rem 0;opacity:0;transform:translateY(30px);transition:opacity .5s var(--easeOut),transform .5s var(--easeOut),color .25s var(--easeOut),padding .35s var(--easeOut)}
+.m-link sup{font:600 .8rem var(--sans);color:var(--accent)}
+.m-link:hover{color:var(--accent);font-style:italic;padding-left:1rem}
+body.menu-open .m-link{opacity:1;transform:none}
+body.menu-open .m-link:nth-child(1){transition-delay:.15s}
+body.menu-open .m-link:nth-child(2){transition-delay:.22s}
+body.menu-open .m-link:nth-child(3){transition-delay:.29s}
+body.menu-open .m-link:nth-child(4){transition-delay:.36s}
+.m-meta{margin-top:3rem;padding-top:1.5rem;border-top:1px solid rgba(242,238,230,.2);display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;font-size:.8rem;color:rgba(242,238,230,.6)}
+
+/* marquee container, fades edges so logos enter/exit softly */
+.marquee {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+}
+
+/* the scrolling flex track */
+.marquee__track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: marquee-ltr 40s linear infinite;
+}
+
+/* one row = one "card"; use margin instead of gap so the -50% loop is seamless */
+.marquee__track .cl-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .7rem;
+  flex: 0 0 auto;
+  margin-right: 3rem;        /* spacing between cards */
+  padding: 0.6rem .8rem;
+  border-radius: 0.5rem;
+  min-width: 8.5rem;
+}
+
+.marquee__track .cl-name {
+  font: 600 .62rem/1.2 var(--sans);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+/* B/W by default */
+.marquee__track .cl-logo {
+  width: 3.75rem;
+  height: 3.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.marquee__track .cl-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: grayscale(100%);
+  transition: filter .25s var(--easeOut);
+  pointer-events: none;     /* hover handled at row level */
+}
+
+/* restore original color on hover */
+.marquee__track .cl-row:hover .cl-logo img {
+  filter: grayscale(0%);
+}
+
+/* pause the whole scroll when cursor is over the marquee */
+.marquee:hover .marquee__track {
+  animation-play-state: paused;
+}
+
+/* logos drift from left → right */
+@keyframes marquee-ltr {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+/* respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track { animation: none; }
+}
+
+/* ============ BUTTONS ============ */
+.btn{position:relative;z-index:0;display:inline-flex;align-items:center;gap:.7rem;padding:1.05rem 1.8rem;border-radius:99px;border:1px solid var(--ink);
+  font:600 .76rem/1 var(--sans);letter-spacing:.13em;text-transform:uppercase;color:var(--ink);overflow:hidden;transition:color .25s var(--easeOut)}
+.btn>*{position:relative;z-index:1}
+.btn::before{content:'';position:absolute;inset:-1px;border-radius:inherit;background:var(--ink);transform:translateY(102%);transition:transform .5s var(--ease)}
+.btn:hover{color:var(--paper)}
+.btn:hover::before{transform:translateY(0)}
+.btn .icon{transition:transform .4s var(--easeOut)}
+.btn:hover .icon{transform:translate(3px,-3px)}
+.btn--solid{background:var(--ink);color:var(--paper)}
+.btn--solid::before{background:var(--accent)}
+.btn--solid:hover{color:var(--paper)}
+
+/* ============ MARQUEE ============ */
+.marquee{border-block:1px solid var(--line);overflow:hidden;padding:1.1rem 0}
+.mq-track{display:flex;width:max-content}
+.mq-group{display:flex;flex:none;animation:mq 28s linear infinite}
+@keyframes mq{to{transform:translateX(-100%)}}
+.mq-item{display:flex;align-items:center;gap:2.4rem;padding-right:2.4rem;font:600 .78rem/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;white-space:nowrap}
+.mq-item .star{width:14px;height:14px;color:var(--accent)}
+
+/* ============ HERO ============ */
+.hero{height:100%;display:flex;flex-direction:column;padding-top:5.2rem}
+.hero-meta{display:flex;justify-content:space-between;gap:1rem;width:min(1200px, calc(100% - 2rem));max-width:1200px;margin:0 auto;padding-inline:clamp(1rem,2vw,2rem)}
+.hero-stage{flex:1;display:flex;align-items:center;position:relative;width:min(1200px, calc(100% - 2rem));max-width:1200px;margin:0 auto;padding-inline:clamp(1rem,2vw,2rem);min-height:0}
+.hero-h{position:relative;z-index:1;width:100%}
+.h-l1{display:flex;align-items:center;gap:1.1rem;font:italic 380 clamp(1.7rem,3.8vw,3.4rem)/1 var(--serif)}
+.h-l1 .star{width:.72em;height:.72em;color:var(--accent)}
+.h-l2{font:500 clamp(2.7rem,10.2vw,9.6rem)/0.95 var(--serif);letter-spacing:-.02em;text-transform:uppercase;font-variation-settings:'opsz' 144;white-space:nowrap}
+
+.float{position:absolute;z-index:2;top:50%;right:clamp(.5rem,4vw,5rem);width:clamp(180px,21vw,300px);
+  margin-top:calc(clamp(180px,21vw,300px) * -0.72)}
+.float-inner{position:relative;border:9px solid var(--paper);background:var(--paper);
+  box-shadow:0 34px 60px -22px rgba(25,21,18,.4)}
+.float-inner .plate{aspect-ratio:3/4}
+.tape{position:absolute;z-index:2;top:-13px;left:50%;width:92px;height:27px;transform:translateX(-50%) rotate(-3deg);
+  background:rgba(233,227,214,.85);border:1px solid rgba(25,21,18,.08);box-shadow:0 2px 5px rgba(25,21,18,.08)}
+.float-note{position:absolute;left:-52%;bottom:-9%;width:140px;text-align:center;font:italic 430 1.05rem/1.3 var(--serif);transform:rotate(-7deg);color:var(--ink)}
+.float-note svg{width:44px;height:32px;transform:rotate(28deg);margin:0 auto .2rem;display:block}
+
+.hero-bottom{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;padding-bottom:2.2rem;width:min(1200px, calc(100% - 2rem));max-width:1200px;margin:0 auto;padding-inline:clamp(1rem,2vw,2rem)}
+.hero-intro{max-width:37ch;font-size:1.02rem;line-height:1.7;color:#4B443B}
+.hero-intro strong{font-weight:600;color:var(--ink)}
+.hero-cta{display:flex;gap:.85rem;flex-wrap:wrap}
+
+/* ============ PLATES ============ */
+.frame{position:relative;overflow:hidden;border-radius:3px;background:var(--paper-2)}
+.project-image{display:block;width:100%;height:100%;object-fit:cover;object-position:center 28%}
+.plate{position:relative;width:100%;height:100%;display:flex;flex-direction:column;justify-content:space-between;gap:.8rem;
+  padding:clamp(1rem,2.2vw,1.6rem);background:var(--paper-2);color:var(--ink)}
+.plate::before{content:'';position:absolute;inset:0;opacity:.13;pointer-events:none;
+  background-image:radial-gradient(currentColor 1.1px,transparent 1.2px);background-size:13px 13px}
+.p-lines::before{background-image:repeating-linear-gradient(45deg,currentColor 0 1.5px,transparent 1.5px 13px)}
+.p-arcs::before{background-image:repeating-radial-gradient(circle at 72% 24%,currentColor 0 1.5px,transparent 1.5px 15px)}
+.p-grid::before{background-image:repeating-linear-gradient(0deg,currentColor 0 1.5px,transparent 1.5px 17px),repeating-linear-gradient(90deg,currentColor 0 1.5px,transparent 1.5px 17px)}
+.p-x::before{background-image:repeating-linear-gradient(45deg,currentColor 0 1.5px,transparent 1.5px 15px),repeating-linear-gradient(-45deg,currentColor 0 1.5px,transparent 1.5px 15px)}
+.plate--ink{background:var(--ink);color:var(--paper)}
+.plate--ink::before{opacity:.17}
+.pl-top{position:relative;display:flex;justify-content:space-between;gap:1rem;font:600 .62rem/1.4 var(--sans);letter-spacing:.16em;text-transform:uppercase}
+.pl-top b{color:var(--accent);font-weight:600}
+.pl-big{position:relative;align-self:center;display:flex;align-items:center;gap:.55rem;
+  font:italic 480 clamp(2.6rem,6vw,5.2rem)/1 var(--serif);letter-spacing:-.02em}
+.pl-big .star{width:.45em;height:.45em;color:var(--accent)}
+.pl-cap{position:relative;font:600 .62rem/1.5 var(--sans);letter-spacing:.14em;text-transform:uppercase;opacity:.72}
+.project .frame{aspect-ratio:21/10}
+.project.wide .pl-big{font-size:clamp(3rem,9vw,7.2rem)}
+.pl-ring{position:absolute;left:50%;top:44%;width:64%;aspect-ratio:1;transform:translate(-50%,-50%);border:1px solid var(--line);border-radius:50%;pointer-events:none}
+.plate--portrait::before{opacity:.09}
+.plate--portrait .pl-big{flex-direction:column;gap:.4rem;font-size:clamp(3.4rem,7vw,5.6rem)}
+
+/* ============ PORTFOLIO COLLAPSE CARDS ============ */
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.4rem,3vw,2.6rem);margin-top:3rem}
+.pcard{border:1px solid var(--line);border-radius:4px;background:var(--paper);overflow:hidden;transition:border-color .25s var(--easeOut)}
+.pcard[open]{border-color:var(--ink)}
+.pcard summary{list-style:none;cursor:pointer;display:block}
+.pcard summary::-webkit-details-marker{display:none}
+.pcard summary:focus-visible{outline-offset:-3px}
+.pc-thumb{display:block;overflow:hidden;background:var(--paper-2)}
+.pc-thumb .plate{aspect-ratio:4/3;transition:transform .8s var(--easeOut)}
+.pcard summary:hover .pc-thumb .plate{transform:scale(1.025)}
+.pcard summary:hover .pc-name{color:var(--accent);font-style:italic}
+.pc-bar{display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem;border-top:1px solid var(--line)}
+.pc-name{font:480 clamp(1.25rem,2.4vw,1.7rem)/1 var(--serif);letter-spacing:-.01em;transition:color .25s var(--easeOut)}
+.pc-meta{margin-left:auto;font:600 .64rem var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.pc-tgl{flex:none;width:2.2rem;height:2.2rem;border:1px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .25s var(--easeOut),border-color .25s var(--easeOut),transform .4s var(--easeOut)}
+.pc-tgl .icon{width:.9rem;height:.9rem}
+.pcard[open] .pc-tgl{background:var(--ink);border-color:var(--ink);color:var(--paper);transform:rotate(45deg)}
+.pc-body{padding:1.3rem 1.2rem 1.5rem;border-top:1px solid var(--line)}
+.pc-body>p{font-size:.9rem;line-height:1.65;color:#4B443B;max-width:60ch}
+.pc-list{margin-top:1.1rem;border-top:1px solid var(--line-soft)}
+.pc-list a{display:flex;align-items:baseline;gap:1rem;padding:.6rem .2rem;border-bottom:1px solid var(--line-soft);font-size:.88rem;transition:color .25s var(--easeOut),padding .3s var(--easeOut)}
+.pc-list a:hover{color:var(--accent);padding-left:.55rem}
+.pc-list .y{margin-left:auto;font:600 .64rem var(--sans);letter-spacing:.1em;color:var(--muted)}
+.pc-foot{margin-top:1.2rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+.pc-tools{font:600 .64rem/1.6 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.pc-foot .btn{padding:.75rem 1.25rem;font-size:.66rem}
+
+/* ============ CLIENTS (About) ============ */
+.clients{margin-top:1.4rem;border-top:1px solid var(--line)}
+.cl-row{display:grid;grid-template-columns:3.4rem 1.1fr 1fr 1.2fr;align-items:center;gap:clamp(1rem,3vw,2.2rem);
+  padding:1.15rem clamp(.2rem,1vw,.8rem);border-bottom:1px solid var(--line)}
+.cl-row:hover{background:rgba(25,21,18,.03)}
+.cl-logo{width:3rem;height:3rem;display:flex;align-items:center;justify-content:center;color:var(--ink)}
+.cl-logo img{display:block;width:100%;height:100%;object-fit:cover;border-radius:.55rem;border:1px solid rgba(25,21,18,.08)}
+.cl-logo svg{width:100%;height:100%}
+.cl-name{font:480 1.2rem/1.2 var(--serif)}
+.cl-dur{font:600 .68rem/1.6 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.cl-pos{font-size:.86rem;color:#4B443B;text-align:right}
+.cl-pos b{display:block;font:600 .62rem/1 var(--sans);letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin-bottom:.25rem}
+
+/* ============ WORK ROWS (kept for discipline pages' list use) ============ */
+.workrows{border-bottom:1px solid var(--line)}
+
+/* ============ FOOTER ============ */
+.footer{border-top:1px solid var(--line);padding:clamp(3rem,6vw,4.5rem) 0 0;margin-top:clamp(3rem,7vw,6rem)}
+.foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.3fr;gap:2.5rem}
+.foot-logo{font:500 1.5rem/1 var(--serif);display:flex;align-items:center;gap:.5rem}
+.foot-logo .star{width:15px;height:15px;color:var(--accent)}
+.foot-brand p{margin-top:1rem;font-size:.88rem;line-height:1.65;color:var(--muted);max-width:30ch}
+.foot-col .label{display:block;margin-bottom:1.1rem}
+.foot-col a{display:flex;align-items:center;gap:.45rem;font-size:.86rem;padding:.28rem 0;color:#4B443B;transition:color .2s var(--easeOut)}
+.foot-col a:hover{color:var(--accent)}
+.foot-col a .icon{width:.75rem;height:.75rem;opacity:.5}
+.foot-mail{font:italic 420 1.05rem/1 var(--serif) !important}
+.totop{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.2rem;font:600 .68rem/1 var(--sans);letter-spacing:.13em;text-transform:uppercase;border:1px solid var(--line);border-radius:99px;padding:.6rem 1.1rem;transition:background .25s var(--easeOut),color .25s var(--easeOut);cursor:pointer}
+.totop:hover{background:var(--ink);color:var(--paper)}
+.foot-bottom{margin-top:3rem;border-top:1px solid var(--line-soft);padding:1.3rem 0;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-size:.74rem;color:var(--muted)}
+
+/* ============ INNER PAGES ============ */
+.page-head{padding-top:9.5rem}
+.ph-eyebrow{margin-bottom:1.4rem}
+.ph-title{font:500 clamp(2.6rem,8.5vw,7.2rem)/1 var(--serif);letter-spacing:-.02em}
+.ph-title em{color:var(--accent)}
+.ph-sub{margin-top:1.6rem;font-size:.98rem;line-height:1.7;color:#4B443B;max-width:52ch}
+
+.about-grid{display:grid;grid-template-columns:1fr;gap:0;align-items:start;margin-top:3.5rem;width:100%;max-width:none}
+.collage{position:relative}
+.c-main{position:relative;border:8px solid var(--paper);box-shadow:0 26px 50px -20px rgba(25,21,18,.35);max-width:440px}
+.c-main .plate{aspect-ratio:3/4}
+.c-note{position:absolute;left:-6%;top:-2.2rem;font:italic 430 1rem/1.3 var(--serif);transform:rotate(-4deg)}
+.about-lead{font:420 clamp(1.35rem,2.4vw,1.75rem)/1.45 var(--serif);width:100%;max-width:none;margin:0 0 2rem}
+.about-lead em{color:var(--accent)}
+.about-copy{margin-top:0;font-size:.95rem;line-height:1.75;color:#4B443B;width:100%;max-width:none;display:grid;gap:1rem}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:2.2rem;border-top:1px solid var(--line);border-bottom:1px solid var(--line);width:min(1200px, calc(100% - 2rem));max-width:1200px;margin-inline:auto;padding-inline:0}
+.stat{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:9rem;padding:1.2rem 1.4rem;border-left:1px solid var(--line);text-align:center}
+.stat:first-child{border-left:0;padding-left:1.4rem}
+.stat b{display:block;font:500 clamp(2.4rem,4vw,6rem)/1 var(--serif);letter-spacing:-.04em;color:var(--ink)}
+.stat span{display:block;margin-top:.7rem;font:600 .68rem var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.sec{padding:clamp(4.5rem,9vw,8rem) 0;width:min(1200px, calc(100% - 2rem));max-width:1200px;margin:0 auto;padding-inline:clamp(1rem,2vw,2rem)}
+.xp-row{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:1.5rem;padding:1.15rem 0;border-top:1px solid var(--line-soft);align-items:baseline}
+.xp-row:last-child{border-bottom:1px solid var(--line-soft)}
+.xp-years{font:600 .72rem var(--sans);letter-spacing:.1em;color:var(--accent)}
+.xp-role{font:460 1.15rem/1.2 var(--serif)}
+.xp-co{font-size:.82rem;color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:.6rem}
+.tag{border:1px solid var(--line);border-radius:99px;padding:.5rem 1rem;font:500 .74rem/1 var(--sans);letter-spacing:.05em;transition:background .2s var(--easeOut),color .2s var(--easeOut),border-color .2s var(--easeOut)}
+.tag:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.otc{display:flex;gap:clamp(1.2rem,4vw,3rem);align-items:flex-start;flex-wrap:wrap}
+.otc figure{box-shadow:0 18px 36px -16px rgba(25,21,18,.3)}
+.otc-1{width:min(52%,420px)}.otc-1 .plate{aspect-ratio:3/2}
+.otc-2{width:min(34%,270px);margin-top:3.5rem;transform:rotate(2.5deg)}.otc-2 .plate{aspect-ratio:4/5}
+.otc-2 .pl-big{font-size:clamp(1.8rem,3vw,2.6rem)}
+.otc figcaption{margin-top:.7rem;font:italic 420 .88rem/1.4 var(--serif);color:var(--muted)}
+
+.work-note{margin-top:2rem;display:flex;justify-content:flex-end}
+.work-note p{font:italic 420 1.1rem/1.5 var(--serif);color:var(--muted);max-width:32ch;text-align:right}
+.manif{border-top:1px solid var(--line);margin-top:clamp(3.5rem,7vw,6rem);padding-top:clamp(3rem,6vw,5rem);display:flex;flex-direction:column;align-items:center;gap:1.8rem;text-align:center}
+.manif blockquote{font:italic 400 clamp(1.7rem,4.4vw,3.2rem)/1.25 var(--serif);max-width:22ch}
+.manif blockquote em{color:var(--accent)}
+
+.crumb{display:inline-flex;align-items:center;gap:.6rem;font:600 .72rem/1 var(--sans);letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:2.2rem;transition:color .25s var(--easeOut)}
+.crumb:hover{color:var(--accent)}
+.crumb .icon{width:.85rem;height:.85rem;transform:rotate(180deg)}
+.cat-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;border-block:1px solid var(--line);padding:1.4rem 0;margin-top:2.8rem}
+.cat-meta dt{font:600 .64rem/1 var(--sans);letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:.55rem}
+.cat-meta dd{font:italic 430 1.05rem/1.35 var(--serif)}
+.projects{padding-top:clamp(3.5rem,7vw,6rem)}
+.project{margin-bottom:clamp(3.5rem,7vw,6.5rem)}
+.project.right,.project.left{width:100%;margin-left:0}
+.cap{display:flex;justify-content:space-between;align-items:baseline;gap:1.5rem;margin-top:1.3rem;flex-wrap:wrap}
+.cap-l{display:flex;align-items:baseline;gap:1rem}
+.cap-num{font:600 .7rem var(--sans);letter-spacing:.1em;color:var(--accent)}
+.cap h3{font:480 clamp(1.4rem,2.8vw,2rem)/1.1 var(--serif)}
+.cap-year{font:600 .68rem var(--sans);letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+
+/* story / product tabs */
+.ptabs{position:relative;margin-top:1.1rem}
+.ptabs>input{position:absolute;opacity:0;pointer-events:none}
+.ptab-btns{display:flex;gap:.6rem;flex-wrap:wrap}
+.ptab-btns label{display:inline-flex;align-items:center;gap:.5rem;border:1px solid var(--line);border-radius:99px;padding:.62rem 1.15rem;
+  font:600 .68rem/1 var(--sans);letter-spacing:.13em;text-transform:uppercase;cursor:pointer;transition:background .2s var(--easeOut),color .2s var(--easeOut),border-color .2s var(--easeOut)}
+.ptab-btns label:hover{border-color:var(--ink)}
+.ptabs>input.s:checked~.ptab-btns .s-l,
+.ptabs>input.p:checked~.ptab-btns .p-l{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.ppanel{display:none;margin-top:1.15rem}
+.ptabs>input.s:checked~.p-story{display:block}
+.ptabs>input.p:checked~.p-prod{display:block}
+.p-story p{font-size:.9rem;line-height:1.65;color:#4B443B;max-width:none;text-wrap:pretty}
+.pfacts{display:grid;grid-template-columns:repeat(2,1fr);gap:1.1rem 2rem;max-width:640px}
+.pfacts dt{font:600 .62rem/1 var(--sans);letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem}
+.pfacts dd{font-size:.88rem;line-height:1.5;color:#4B443B}
+.pfacts dd a{color:inherit;text-decoration:underline;text-decoration-color:var(--muted);text-underline-offset:.18em;transition:color .2s var(--easeOut)}
+.pfacts dd a:hover{color:var(--accent)}
+
+.next{display:block;border-top:1px solid var(--line);padding:clamp(2.5rem,5vw,4rem) 0}
+.next .label{display:block;margin-bottom:1rem}
+.next-name{display:inline-flex;align-items:center;gap:1.6rem;font:500 clamp(2.2rem,6.5vw,5rem)/1 var(--serif);letter-spacing:-.015em;transition:color .3s}
+.next-name .icon{width:.8em;height:.8em;transition:transform .45s var(--easeOut)}
+.next:hover .next-name{color:var(--accent);font-style:italic}
+.next:hover .next-name .icon{transform:translate(8px,-8px)}
+
+/* contact */
+.avail{display:inline-flex;align-items:center;gap:.75rem;border:1px solid var(--line);border-radius:99px;padding:.65rem 1.2rem;font:600 .7rem/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;margin-top:2rem}
+.avail .dot{position:relative;width:9px;height:9px;border-radius:50%;background:var(--accent)}.avail .dot::after{content:'';position:absolute;inset:0;border-radius:inherit;background:var(--accent);transform:scale(1);opacity:.5;animation:pulse 2.4s var(--easeOut) infinite}
+@keyframes pulse{0%{transform:scale(1);opacity:.5}70%{transform:scale(3.4);opacity:0}100%{transform:scale(3.4);opacity:0}}
+.mail-row{display:flex;align-items:center;gap:1.4rem;flex-wrap:wrap;margin-top:clamp(2.5rem,5vw,4rem)}
+.mail{position:relative;font:420 clamp(1.5rem,4.8vw,4.2rem)/1.15 var(--serif);letter-spacing:-.01em;word-break:break-all}
+.mail::after{content:'';position:absolute;left:0;bottom:-.06em;width:100%;height:2px;background:var(--ink);transform:scaleX(0);transform-origin:right;transition:transform .5s var(--ease)}
+.mail:hover::after{transform:scaleX(1);transform-origin:left}
+.copybtn{width:3rem;height:3rem;border:1px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .25s var(--easeOut),color .25s var(--easeOut),border-color .25s var(--easeOut);cursor:pointer}
+.copybtn:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.copybtn .icon{width:1.05rem;height:1.05rem}
+.contact-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(3rem,7vw,6rem);margin-top:clamp(3rem,6vw,5rem)}
+.form .label{display:block;margin-bottom:2.4rem}
+.field{margin-bottom:1.9rem}
+.field label{display:block;font:600 .66rem/1 var(--sans);letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem}
+.field input,.field textarea{width:100%;background:transparent;border:0;border-bottom:1px solid var(--line);padding:.85rem 0;font:400 1rem/1.5 var(--sans);color:var(--ink);border-radius:0;transition:border-color .25s var(--easeOut),box-shadow .25s var(--easeOut)}
+.field textarea{resize:vertical;min-height:110px}
+.field input:focus,.field textarea:focus{outline:none;border-bottom-color:var(--ink);box-shadow:0 1px 0 var(--ink)}
+.ferr{display:none;margin-top:.45rem;font:italic 420 .8rem/1.3 var(--serif);color:var(--accent)}
+.field.err input,.field.err textarea{border-bottom-color:var(--accent)}
+.field.err .ferr{display:block}
+.chips{display:flex;flex-wrap:wrap;gap:.6rem;margin:.4rem 0 2.2rem}
+.chip{position:relative;cursor:pointer}
+.chip input{position:absolute;opacity:0;pointer-events:none}
+.chip span{display:inline-block;border:1px solid var(--line);border-radius:99px;padding:.6rem 1.1rem;font:500 .74rem/1 var(--sans);letter-spacing:.06em;transition:background .2s var(--easeOut),color .2s var(--easeOut),border-color .2s var(--easeOut)}
+.chip:hover span{border-color:var(--ink)}
+.chip input:checked+span{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.chip input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+.info-block{padding:1.5rem 0;border-top:1px solid var(--line)}
+.info-block:first-child{padding-top:0;border-top:0}
+.info-block .label{display:block;margin-bottom:.9rem}
+.info-block p{font-size:.88rem;line-height:1.65;color:#4B443B}
+.soc{display:flex;align-items:center;gap:.5rem;font:italic 430 1.02rem/1 var(--serif);padding:.32rem 0;transition:color .25s var(--easeOut),padding .3s var(--easeOut)}
+.soc:hover{color:var(--accent);padding-left:.5rem}
+.soc .icon{width:.8rem;height:.8rem;opacity:.55}
+.clockline{display:flex;align-items:baseline;gap:.6rem;font:430 1.5rem/1 var(--serif);font-variant-numeric:tabular-nums}
+.clockline small{font:600 .64rem var(--sans);letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+
+#toasts{position:fixed;left:1.4rem;bottom:1.4rem;z-index:180;display:flex;flex-direction:column;gap:.7rem}
+.toast{display:flex;align-items:center;gap:.8rem;background:var(--ink);color:var(--paper);padding:.95rem 1.3rem;border-radius:4px;
+  font-size:.84rem;box-shadow:0 16px 34px -10px rgba(25,21,18,.4);transform:translateY(20px);opacity:0;transition:transform .45s var(--easeOut),opacity .45s var(--easeOut)}
+.toast.show{transform:none;opacity:1}
+.toast .icon{width:1rem;height:1rem;color:var(--accent);flex:none}
+
+/* ============ RESPONSIVE, TABLET ============ */
+@media(max-width:1024px){
+  .foot-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:900px){
+  .nav{display:none}
+  .burger{display:block}
+  .hero{padding-top:4.8rem}
+  .hero-stage{flex-direction:column;justify-content:center;align-items:stretch;padding:0}
+  .float{position:relative;top:auto;right:auto;margin:1.6rem auto .8rem;width:min(240px,50vw);
+    margin-top:calc(min(240px,50vw) * -0.3)}
+  .float-note{left:auto;right:-6%;bottom:-16%;width:120px;font-size:.95rem}
+  .float-note svg{width:36px;height:26px}
+  .h-l2{white-space:nowrap;font-size:clamp(3rem,12vw,7rem)}
+  .hero-bottom{flex-direction:column;align-items:flex-start;gap:1.4rem;padding-bottom:1.6rem}
+  .page-head{padding-top:8rem}
+  .about-grid,.contact-grid{grid-template-columns:1fr}
+  .collage{max-width:420px;margin-bottom:2rem}
+  .cat-meta{grid-template-columns:1fr;gap:1.1rem}
+  .work-note{justify-content:flex-start}
+  .work-note p{text-align:left}
+  .cl-pos{text-align:left}
+}
+/* ============ RESPONSIVE, PHONE ============ */
+@media(max-width:700px){
+  .pgrid{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .hero{padding-top:4.4rem}
+  .h-l1{font-size:clamp(1.4rem,6.5vw,2rem);gap:.7rem}
+  .h-l2{font-size:clamp(2.6rem,13.2vw,4.8rem)}
+  .float{width:min(190px,46vw);margin:1.2rem auto .6rem;margin-top:calc(min(190px,46vw) * -0.28)}
+  .float-note{width:106px;font-size:.88rem;bottom:-18%}
+  .hero-intro{font-size:.92rem;max-width:34ch}
+  .hero-bottom{gap:1.1rem;padding-bottom:1.2rem}
+  .btn{padding:.9rem 1.35rem;font-size:.7rem}
+  .marquee{padding:.85rem 0}
+  .mq-item{font-size:.66rem;gap:1.6rem;padding-right:1.6rem}
+  .mq-item .star{width:11px;height:11px}
+  .page-head{padding-top:7rem}
+  .xp-row{grid-template-columns:1fr;gap:.15rem}
+  .stat{min-width:46%;padding:1.1rem 1rem}
+  .stat:nth-child(odd){border-left:0;padding-left:0}
+  .pfacts{grid-template-columns:1fr}
+  .otc-1,.otc-2{width:100%;margin-top:0;transform:none}
+  .otc-2{margin-top:1.4rem}
+  .foot-grid{grid-template-columns:1fr}
+  .ptab-btns label{padding:.58rem 1rem;font-size:.64rem}
+  .cl-row{grid-template-columns:auto 1fr;row-gap:.35rem}
+  .cl-logo{grid-row:span 2;width:2.6rem;height:2.6rem}
+  .cl-dur{grid-column:2}
+  .cl-pos{grid-column:2}
+  .pc-bar{padding:.85rem 1rem}
+  .pc-meta{display:none}
+}
+@media(max-width:380px){
+  .hero-intro{display:none}
+  .hero-bottom{padding-bottom:1.4rem}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  .mq-group{animation:none}
+}
+
+/* ============ HOVER GATE (touch devices) ============ */
+@media (hover: none), (pointer: coarse) {
+  .nav a::after, .btn::before, .pcard summary:hover .pc-thumb .plate,
+  .pcard summary:hover .pc-name, .mail::after, .next:hover .next-name .icon,
+  .next:hover .next-name, .soc:hover, .cl-row:hover .cl-logo img,
+  .marquee:hover .marquee__track, .chip:hover span, .tag:hover,
+  .ptab-btns label:hover, .crumb:hover, .pc-list a:hover,
+  .copybtn:hover, .totop:hover, .foot-col a:hover, .btn:hover,
+  .btn:hover .icon, .btn:hover::before, .m-link:hover { transition: none !important; }
+  .pcard summary:hover .pc-thumb .plate { transform: none !important; }
+  .marquee:hover .marquee__track { animation-play-state: running !important; }
+}
+</style>
 </head>
+<body class="locked">
 
-<body class="index-page">
+<div class="grain" aria-hidden="true"></div>
 
-  <header id="header" class="header d-flex align-items-center light-background sticky-top">
-    <div class="container position-relative d-flex align-items-center justify-content-between">
+<div class="wipe" id="wipe">
+  <div class="wipe-inner">
+    <svg class="star spin" viewBox="0 0 24 24"><path d="M12 1.5v21M1.5 12h21M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/></svg>
+    <span id="wipeLabel">My Portfolio</span>
+  </div>
+</div>
 
-      <!-- <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
-      <img src="assets/img/logo.webp" alt="">
-      <h1 class="sitename">FolioOne</h1> 
-    </a> -->
+<header class="hdr" id="hdr">
+  <div class="wrap hdr-in">
+    <a class="logo" href="#home">Pudra Fanki
+      <svg class="star spin" viewBox="0 0 24 24"><path d="M12 1.5v21M1.5 12h21M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/></svg>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#home" data-nav="home"><sup>01</sup>Home</a>
+      <a href="#about" data-nav="about"><sup>02</sup>About</a>
+      <a href="#portfolio" data-nav="portfolio"><sup>03</sup>Portfolio</a>
+      <a href="#contact" data-nav="contact"><sup>04</sup>Contact</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Toggle menu"><span></span><span></span></button>
+  </div>
+</header>
 
-      <nav id="navmenu" class="navmenu">
-        <ul>
-          <li><a href="index.html" class="active">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="resume.html">Resume</a></li>
-          <li><a href="portfolio.html">Portfolio</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
-        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-      </nav>
+<div class="mnav" id="mnav">
+  <nav aria-label="Mobile">
+    <a class="m-link" href="#home" data-nav="home"><sup>01</sup>Home</a>
+    <a class="m-link" href="#about" data-nav="about"><sup>02</sup>About</a>
+    <a class="m-link" href="#portfolio" data-nav="portfolio"><sup>03</sup>Portfolio</a>
+    <a class="m-link" href="#contact" data-nav="contact"><sup>04</sup>Contact</a>
+  </nav>
+  <div class="m-meta">
+    <span>pudra.fanki@gmail.com</span>
+    <span>Yogyakarta, ID</span>
+  </div>
+</div>
 
-
+<main>
+<!-- ================= ABOUT ================= -->
+<section class="page" id="about">
+  <div class="page-head site-shell">
+    <p class="label ph-eyebrow" data-rv>(02 / About)</p>
+    <h1 class="ph-title"><span class="mask"><span class="mask-in">Hi everyone</span></span>
+    <span class="mask"><span class="mask-in"><em>you can call me Pudra</em></span></span></h1>
+  </div>
+  <section class="site-shell" style="padding-bottom:2rem">
+    <div class="about-grid">
+      <div>
+        <p class="about-lead" data-rv>I believe that countless small businesses and growing companies just need the right enhancement to scale up and be truly seen. For the past five years, I’ve been helping them do exactly that.</p>
+        <div class="about-copy" data-rv style="--d:.1s">
+        <div class="stats" data-rv style="--d:.15s">
+          <div class="stat"><b>5+</b><span>Years in</span></div>
+          <div class="stat"><b>50+</b><span>Projects shipped</span></div>
+          <div class="stat"><b>20+</b><span>Happy clients</span></div>
+        </div>
+      </div>
     </div>
-  </header>
+    <div class="sec"><span class="label" data-rv>(Experience)</span>
+      <div style="margin-top:1.4rem" data-rv>
+        <div class="xp-row"><span class="xp-years">2026 to now</span><span class="xp-role">Independent</span></div>
+        <div class="xp-row"><span class="xp-years">2023 to 2026</span><span class="xp-role">Graphic Designer</span><span class="xp-co">BPRS HIK MCI, Yogyakarta</span></div>
+        <div class="xp-row"><span class="xp-years">2020 to 2022</span><span class="xp-role">Marketing Communication</span><span class="xp-co">Gmedia Internet, Yogyakarta</span></div>
+        <div class="xp-row"><span class="xp-years">2017 to 2020</span><span class="xp-role">Video Editor</span><span class="xp-co">Temanggung TV, Temanggung</span></div>
+      </div></div>
+    <div class="sec" style="padding-top:0"><span class="label" data-rv>(Toolbox)</span>
+      <div class="tags" style="margin-top:1.4rem" data-rv>
+<span class="tag">Figma</span><span class="tag">Premiere Pro</span><span class="tag">After Effects</span><span class="tag">Illustrator</span><span class="tag">Canva</span><span class="tag">AI Tools</span><span class="tag">Affinity</span><span class="tag">Photoshop</span>
+      </div></div>
 
-  <main class="main">
+    <!-- ======= RECENT FREELANCE CLIENTS ======= -->
+    <div class="sec" style="padding-top:0">
+      <span class="label" data-rv>(Recent clients, freelance)</span>
 
-    <!-- Hero Section -->
-    <section id="hero" class="hero section">
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row gy-4 align-items-center">
-          <div class="col-lg-6 order-2 order-lg-1">
-            <div class="hero-content">
-              <h1 data-aos="fade-up" data-aos-delay="200">Hello, I'm <span class="highlight">Pudra Fanki</span></h1>
-              <h2 data-aos="fade-up" data-aos-delay="300">Creative <span class="typed" data-typed-items="Graphic Designer, Video Editor, UI / UX Designer, Brand Strategist"></span></h2>
-              <p data-aos="fade-up" data-aos-delay="400">A Visual Designer such as Graphic Designer, UI / UX, Social Media & Video Editor. I'm a passionate professional skilled in strategic visual storytelling and combining technical perspectives to manage creative projects, from organizational branding and redesigning websites to producing marketing materials.</p>
-              <div class="hero-actions" data-aos="fade-up" data-aos-delay="500">
-                <a href="portfolio.html" class="btn btn-primary">View My Work</a>
-                <a href="contact.html" class="btn btn-outline">Get In Touch</a>
-              </div>
-              <div class="social-links" data-aos="fade-up" data-aos-delay="600">
-                <a href="https://id.linkedin.com/in/pudra-fanki-42a60b30a"><i class="bi bi-linkedin"></i></a>
-                <a href="https://www.instagram.com/pudrafanky/"><i class="bi bi-instagram"></i></a>
-              </div>
-            </div>
+      <div class="marquee" data-rv>
+        <div class="marquee__track clients">
+          <!-- original set -->
+          <div class="cl-row">
+            <span class="cl-logo" aria-hidden="true"><img src="logoCMA.png" alt="BPR Chandra Muktiartha" /></span>
+            <span class="cl-name">BPR Chandra Muktiartha</span>
           </div>
-          <div class="col-lg-6 order-1 order-lg-2">
-            <div class="hero-image" data-aos="zoom-in" data-aos-delay="300">
-              <div class="image-wrapper">
-                <img src="assets/img/profile/profile-square-11.webp" alt="Sarah Mitchell" class="img-fluid">
-                <div class="floating-elements">
-                  <div class="floating-card design" data-aos="fade-left" data-aos-delay="700">
-                    <i class="bi bi-palette"></i>
-                    <span>Design</span>
-                  </div>
-                  <div class="floating-card code" data-aos="fade-right" data-aos-delay="800">
-                    <i class="bi bi-camera-reels"></i>
-                    <span>Video Editing</span>
-                  </div>
-                  <div class="floating-card creativity" data-aos="fade-up" data-aos-delay="900">
-                    <i class="bi bi-columns"></i>
-                    <span>Content Creation</span>
-                </div>
-              </div>
-            </div>
+          <div class="cl-row">
+            <span class="cl-logo" aria-hidden="true"><img src="Kiriminaja_logo.png" alt="Kiriminaja logo" /></span>
+            <span class="cl-name">Kiriminaja</span>
+          </div>
+          <div class="cl-row">
+            <span class="cl-logo" aria-hidden="true"><img src="BankDanamon_logo.png" alt="Bank Danamon logo" /></span>
+            <span class="cl-name">Bank Danamon</span>
+          </div>
+          <div class="cl-row">
+            <span class="cl-logo" aria-hidden="true"><img src="GriyaPersadaLogo.jpeg" alt="Griya Persada Hotel" /></span>
+            <span class="cl-name">Griya Persada Hotel</span>
+          </div>
+          <div class="cl-row">
+            <span class="cl-logo" aria-hidden="true"><img src="9comlogo.jpeg" alt="9Com logo" /></span>
+            <span class="cl-name">9 Communications</span>
+          </div>
+          <div class="cl-row">
+            <span class="cl-logo" aria-hidden="true"><img src="moneelogo.png" alt="Monee logo" /></span>
+            <span class="cl-name">Monee</span>
+          </div>
+          <div class="cl-row">
+            <span class="cl-logo" aria-hidden="true"><img src="LogoIGN.webp" alt="IGN logo" /></span>
+            <span class="cl-name">International Global Network</span>
+          </div>
+          <div class="cl-row">
+            <span class="cl-logo" aria-hidden="true"><img src="Armoura.webp" alt="Armoura logo" /></span>
+            <span class="cl-name">Armoura</span>
+          </div>
+
+          <!-- duplicate set for seamless loop -->
+          <div class="cl-row" aria-hidden="true">
+            <span class="cl-logo"><img src="logoCMA.png" alt="" /></span>
+            <span class="cl-name">BPR Chandra Muktiartha</span>
+          </div>
+          <div class="cl-row" aria-hidden="true">
+            <span class="cl-logo"><img src="Kiriminaja_logo.png" alt="" /></span>
+            <span class="cl-name">Kiriminaja</span>
+          </div>
+          <div class="cl-row" aria-hidden="true">
+            <span class="cl-logo"><img src="BankDanamon_logo.png" alt="" /></span>
+            <span class="cl-name">Bank Danamon</span>
+          </div>
+          <div class="cl-row" aria-hidden="true">
+            <span class="cl-logo"><img src="GriyaPersadaLogo.jpeg" alt="" /></span>
+            <span class="cl-name">Griya Persada Hotel</span>
+          </div>
+          <div class="cl-row" aria-hidden="true">
+            <span class="cl-logo"><img src="9comlogo.jpeg" alt="" /></span>
+            <span class="cl-name">9 Communications</span>
+          </div>
+          <div class="cl-row" aria-hidden="true">
+            <span class="cl-logo"><img src="moneelogo.png" alt="" /></span>
+            <span class="cl-name">Monee</span>
+          </div>
+          <div class="cl-row" aria-hidden="true">
+            <span class="cl-logo"><img src="LogoIGN.webp" alt="" /></span>
+            <span class="cl-name">International Global Network</span>
+          </div>
+          <div class="cl-row" aria-hidden="true">
+            <span class="cl-logo"><img src="Armoura.webp" alt="" /></span>
+            <span class="cl-name">Armoura</span>
           </div>
         </div>
-
-      </div>
-
-    </section><!-- /Hero Section -->
-
-  </main>
-
-  <footer id="footer" class="footer">
-
-    <div class="container">
-      <div class="copyright text-center ">
-        <p>© <span>Copyright</span> <strong class="px-1 sitename">FolioOne</strong> <span>All Rights Reserved<br></span></p>
-      </div>
-      <div class="social-links d-flex justify-content-center">
-        <a href="https://web.facebook.com/pudra.f.a/"><i class="bi bi-facebook"></i></a>
-        <a href="https://www.instagram.com/pudrafanky/"><i class="bi bi-instagram"></i></a>
-        <a href="https://id.linkedin.com/in/pudra-fanki-42a60b30a"><i class="bi bi-linkedin"></i></a>
-      </div>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you've purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
       </div>
     </div>
+      <span class="label" data-rv>Message me for details about the freelance project</span>
 
-  </footer>
+    </div>
 
-  <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <!-- Preloader -->
-  <div id="preloader"></div>
+      </div></div>
+  </section>
+</section>
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/typed.js/typed.umd.js"></script>
-  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+<!-- ================= PORTFOLIO INDEX (collapsed cards) ================= -->
+<section class="page" id="portfolio">
+  <div class="page-head wrap">
+    <p class="label ph-eyebrow" data-rv>(03 / Portfolio)</p>
+    <h1 class="ph-title"><span class="mask"><span class="mask-in">The work</span></span>
+    <span class="mask"><span class="mask-in"><em>in three disciplines</em></span></span></h1>
+  </div>
+  <section class="wrap">
+    <div class="pgrid" data-rv>
 
-  <!-- Main JS File -->
-  <script src="assets/js/main.js"></script>
+      <!-- UI/UX -->
+      <details class="pcard">
+        <summary>
+          <span class="pc-thumb"><span class="plate">
+            <span class="pl-top"><span>Discipline 01</span><b>★</b></span>
+            <span class="pl-big">UI/UX<svg class="star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5v21M1.5 12h21M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/></svg></span>
+            <span class="pl-cap">Apps · Web · Vibe Coding</span>
+          </span></span>
+          <span class="pc-bar">
+            <span class="pc-name">UI/UX</span>
+            <span class="pc-meta"> 2025 - present</span>
+            <span class="pc-tgl"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span>
+          </span>
+        </summary>
+        <div class="pc-body">
+          <p>Crafting digital experiences for both web and mobile apps. It spans everything from initial research and wireframes to the final pixels and design systems—sprinkled with experimental 'vibe coding' for that extra dynamic feel.</p>
+          <div class="pc-list">
+          </div>
+          <div class="pc-foot">
+            <span class="pc-tools">Figma · VS Code · AI</span>
+            <a class="btn btn--solid" href="#ui-ux"><span>Open UI/UX</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+          </div>
+        </div>
+      </details>
 
+      <!-- GRAPHIC DESIGN -->
+      <details class="pcard">
+        <summary>
+          <span class="pc-thumb"><span class="plate p-x plate--ink">
+            <span class="pl-top"><span>Discipline 02</span><b>★</b></span>
+            <span class="pl-big">Gd<svg class="star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5v21M1.5 12h21M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/></svg></span>
+            <span class="pl-cap">Identity · Social Media</span>
+          </span></span>
+          <span class="pc-bar">
+            <span class="pc-name">Graphic Design</span>
+            <span class="pc-meta">2020 to 2026</span>
+            <span class="pc-tgl"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span>
+          </span>
+        </summary>
+        <div class="pc-body">
+          <p>Building complete visual ecosystems across digital and print. This includes brand identities, social media development, editorial books, leaflets, and banners.</p>
+          <div class="pc-list">
+          </div>
+          <div class="pc-foot">
+            <span class="pc-tools">Illustrator · Canva · Photoshop</span>
+            <a class="btn btn--solid" href="#graphic-design"><span>Open Graphic Design</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+          </div>
+        </div>
+      </details>
+
+      <!-- VIDEO EDITING -->
+      <details class="pcard">
+        <summary>
+          <span class="pc-thumb"><span class="plate p-grid">
+            <span class="pl-top"><span>Discipline 03</span><b>★</b></span>
+            <span class="pl-big">Ve<svg class="star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5v21M1.5 12h21M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/></svg></span>
+            <span class="pl-cap">Motion Graphics · Music · Brand</span>
+          </span></span>
+          <span class="pc-bar">
+            <span class="pc-name">Video Editing</span>
+            <span class="pc-meta">2020 to present</span>
+            <span class="pc-tgl"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span>
+          </span>
+        </summary>
+        <div class="pc-body">
+          <p>Motion-driven editing for SMEs, corporate brands, and digital campaigns. Combining precise cuts with dynamic graphics—if a keyframe doesn't add value to the story, it doesn't make the cut.</p>
+          <div class="pc-list">
+          </div>
+          <div class="pc-foot">
+            <span class="pc-tools">Premiere Pro · After Effects</span>
+            <a class="btn btn--solid" href="#video-editing"><span>Open Video Editing</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+          </div>
+        </div>
+      </details>
+
+    </div>
+    <div class="manif" data-rv><blockquote>&ldquo;Craft is just <em>care</em>, repeated until it looks like talent.&rdquo;</blockquote>
+      <a class="btn" href="#contact"><span>Start a project</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a></div>
+  </section>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="page" id="contact">
+  <div class="page-head wrap">
+    <p class="label ph-eyebrow" data-rv>(04 / Contact)</p>
+    <h1 class="ph-title"><span class="mask"><span class="mask-in">Let&rsquo;s make</span></span>
+    <span class="mask"><span class="mask-in"><em>something rare.</em></span></span></h1>
+    <div data-rv><span class="avail"><span class="dot"></span>Available</span></div>
+    <div class="mail-row" data-rv style="--d:.1s">
+      <a class="mail" href="mailto:pudra.fanki@gmail.com">pudra.fanki@gmail.com</a>
+      <button class="copybtn" data-copy="pudra.fanki@gmail.com" aria-label="Copy email">
+      <svg class="icon" viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button>
+    </div>
+    <div class="contact-grid">
+      <form class="form" id="cform" action="mailto:pudra.fanki@gmail.com" method="post" enctype="text/plain" novalidate data-rv>
+        <span class="label">(Tell me about it)</span>
+        <div class="field" id="f-name"><label for="in-name">Your name</label>
+          <input id="in-name" name="name" type="text" autocomplete="name" placeholder="Nama Saya">
+          <span class="ferr">A name helps, even a nickname.</span></div>
+        <div class="field" id="f-email"><label for="in-email">Email</label>
+          <input id="in-email" name="email" type="email" autocomplete="email" placeholder="namasaya@domain.com">
+          <span class="ferr">That email doesn&rsquo;t look quite right.</span></div>
+        <label class="label" style="margin-bottom:.9rem;display:block">What do you need?</label>
+        <div class="chips" role="radiogroup" aria-label="Project type">
+          <label class="chip"><input type="radio" name="ptype" value="UI/UX" checked><span>UI/UX</span></label>
+          <label class="chip"><input type="radio" name="ptype" value="Identity"><span>Identity</span></label>
+          <label class="chip"><input type="radio" name="ptype" value="Video edit"><span>Video edit</span></label>
+          <label class="chip"><input type="radio" name="ptype" value="Motion"><span>Motion</span></label>
+          <label class="chip"><input type="radio" name="ptype" value="Surprise me"><span>Surprise me</span></label>
+        </div>
+        <div class="field" id="f-msg"><label for="in-msg">The project, in your own words</label>
+          <textarea id="in-msg" name="message" rows="4" placeholder="Timelines, dreams, rough edges, all welcome."></textarea>
+          <span class="ferr">Give me at least a sentence to work with.</span></div>
+        <button class="btn btn--solid" type="submit" id="sendBtn"><span>Send it</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></button>
+      </form>
+      <div data-rv style="--d:.1s">
+        <div class="info-block"><span class="label">Direct</span>
+          <p><a class="soc" href="mailto:pudra.fanki@gmail.com">pudra.fanki@gmail.com <svg class="icon" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+          <a class="soc" href="mailto:pudra.fanki@gmail.com">Message me on email <svg class="icon" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></a></p></div>
+        <div class="info-block"><span class="label">Elsewhere</span>
+          <a class="soc" href="https://wa.me/628988880631" target="_blank" rel="noopener">WhatsApp <svg class="icon" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+          <a class="soc" href="https://www.linkedin.com/in/pudra-fanki/" target="_blank" rel="noopener">LinkedIn <svg class="icon" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></a></div>
+        <div class="info-block"><span class="label">Studio</span>
+          <p>Yogyakarta, Indonesia.<br>Usually in by 09:00 WIB.</p></div>
+        <div class="info-block"><span class="label">My local time</span>
+          <p class="clockline"><span data-clock>--:--:--</span><small>WIB, GMT+7</small></p>
+          <p style="margin-top:.5rem">I reply within 48 hours. Usually faster, occasionally at midnight.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= UI/UX ================= -->
+<section class="page" id="ui-ux">
+  <div class="page-head wrap">
+    <a class="crumb" href="#portfolio" data-rv><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg> All work</a>
+    <p class="label ph-eyebrow" data-rv style="--d:.05s">(01 / 04 / UI/UX)</p>
+    <h1 class="ph-title"><span class="mask"><span class="mask-in">UI/UX</span></span>
+    <span class="mask"><span class="mask-in"><em>interfaces that feel inevitable</em></span></span></h1>
+    <p class="ph-sub" data-rv style="--d:.1s">Product design from first sketch to shipped screen. Research, flows, wireframes, pixels, and the design systems that keep everything honest.</p>
+    <dl class="cat-meta" data-rv style="--d:.15s">
+      <div><dt>Services</dt><dd>Apps · Web</dd></div>
+      <div><dt>Tools</dt><dd>Figma · Vibe Coding</dd></div>
+      <div><dt>Timeline</dt><dd>2025 to present</dd></div>
+    </dl>
+  </div>
+  <section class="projects wrap">
+
+    <article class="project wide" data-rv>
+      <div class="frame"><img class="project-image" src="CMA_Project.webp" alt="Pudra Fanki in his design studio"></div>
+      <div class="cap"><div class="cap-l"><span class="cap-num">01</span><h3>BPR Chandra Muktiartha's Website</h3></div><span class="cap-year">2026</span></div>
+      <div class="ptabs">
+        <input class="s" type="radio" name="pt-broadcast" id="pt-broadcast-s">
+        <input class="p" type="radio" name="pt-broadcast" id="pt-broadcast-p" checked>
+        <div class="ptab-btns">
+          <label class="s-l" for="pt-broadcast-s">Story</label>
+          <label class="p-l" for="pt-broadcast-p">The Product</label>
+        </div>
+        <div class="ppanel p-story"><p>Built in 6 weeks, this website simply makes it easier for people to connect with their bank. It provides a clear, reliable channel for daily loan and deposit inquiries, alongside direct customer support. A straightforward solution that helped build a more professional and trusted digital presence.</p></div>
+        <div class="ppanel p-prod"><dl class="pfacts">
+          <div><dt>Role</dt><dd>Product Designer</dd></div>
+          <div><dt>Deliverables</dt><dd>Personal Computer, Laptop, and Phone</dd></div>
+          <div><dt>Tools</dt><dd>WordPress, Figma</dd></div>
+          <div><dt>Result</dt><dd><a href="https://bprcma.co.id" target="_blank" rel="noopener noreferrer">bprcma.co.id</a></dd></div>
+        </dl></div>
+      </div>
+    </article>
+
+    <article class="project wide" data-rv>
+      <div class="frame"><img class="project-image" src="broadcast_app.webp" alt="Pudra Fanki in his design studio"></div>
+      <div class="cap"><div class="cap-l"><span class="cap-num">02</span><h3>Broadcast App</h3></div><span class="cap-year">2026</span></div>
+      <div class="ptabs">
+        <input class="s" type="radio" name="pt-bpr" id="pt-bpr-s">
+        <input class="p" type="radio" name="pt-bpr" id="pt-bpr-p" checked>
+        <div class="ptab-btns">
+          <label class="s-l" for="pt-bpr-s">Story</label>
+          <label class="p-l" for="pt-bpr-p">The Product</label>
+        </div>
+        <div class="ppanel p-story"><p>Developed an internal WhatsApp broadcast tool in response to new Meta regulations. Through continuous iteration—from simplifying data input via .xlsx uploads to integrating image support—the app evolved into a highly reliable daily tool. Its practical success eventually led to cross-department adoption, expanding its use to automate customer billing notifications.</p></div>
+        <div class="ppanel p-prod"><dl class="pfacts">
+          <div><dt>Role</dt><dd>Product Designer</dd></div>
+          <div><dt>Deliverables</dt><dd>Personal Computer, and Laptop</dd></div>
+          <div><dt>Tools</dt><dd>GLM 5.2</dd></div>
+          <div><dt>Result</dt><dd>internal use only but effectively used by multiple departments</dd></div>
+        </dl></div>
+      </div>
+    </article>
+
+    <article class="project wide" data-rv>
+      <div class="frame"><img class="project-image" src="project game.webp" alt="Pudra Fanki in his design studio"></div>
+      <div class="cap"><div class="cap-l"><span class="cap-num">03</span><h3>Game Project</h3></div><span class="cap-year">2026</span></div>
+      <div class="ptabs">
+        <input class="s" type="radio" name="game" id="game-s">
+        <input class="p" type="radio" name="game" id="game-p" checked>
+        <div class="ptab-btns">
+          <label class="s-l" for="game-s">Story</label>
+          <label class="p-l" for="game-p">The Product</label>
+        </div>
+        <div class="ppanel p-story"><p>An ongoing children's game project currently in active development. The core process relies on continuous iteration, balancing fun and safety by actively gathering direct feedback from both the kids playing it and the parents guiding them. Its a work-in-progress dedicated to getting the experience just right for both audiences.</p></div>
+        <div class="ppanel p-prod"><dl class="pfacts">
+          <div><dt>Role</dt><dd>Product Designer</dd></div>
+          <div><dt>Deliverables</dt><dd>Tablet, Laptop, and Phone</dd></div>
+          <div><dt>Tools</dt><dd>GLM 5.2</dd></div>
+          <div><dt>Result</dt><dd>on going project <a href="https://tinyurl.com/game-prvw" target="_blank" rel="noopener noreferrer">can be found here</a></dd></div>
+        </dl></div>
+      </div>
+    </article>
+
+    <article class="project wide" data-rv>
+      <div class="frame"><img class="project-image" src="App Kunjungan.webp" alt="Pudra Fanki in his design studio"></div>
+      <div class="cap"><div class="cap-l"><span class="cap-num">04</span><h3>Visiting Apps</h3></div><span class="cap-year">2026</span></div>
+      <div class="ptabs">
+        <input class="s" type="radio" name="visit" id="visit-s">
+        <input class="p" type="radio" name="visit" id="visit-p" checked>
+        <div class="ptab-btns">
+          <label class="s-l" for="visit-s">Story</label>
+          <label class="p-l" for="visit-p">The Product</label>
+        </div>
+        <div class="ppanel p-story"><p>What began as a tracking tool for the auction team is steadily growing into a comprehensive field management solution. It replaces disorganized paper trails with a structured digital system and uses location pinning to help managers dispatch tasks without team overlaps. Proven effective in its initial rollout, the app is now laying the groundwork for company-wide field integration.</p></div>
+        <div class="ppanel p-prod"><dl class="pfacts">
+          <div><dt>Role</dt><dd>Product Designer</dd></div>
+          <div><dt>Deliverables</dt><dd>Phone</dd></div>
+          <div><dt>Tools</dt><dd>GLM 5.2</dd></div>
+          <div><dt>Result</dt><dd> Paperless workflow • Real-time tracking <a href="https://laporan-kunjungan-ayda.vercel.app/" target="_blank" rel="noopener noreferrer">can be found here</a></dd></div>
+        </dl></div>
+      </div>
+    </article>
+
+    <article class="project wide" data-rv>
+      <div class="frame"><img class="project-image" src="UX Desain Review.webp" alt="Pudra Fanki in his design studio"></div>
+      <div class="cap"><div class="cap-l"><span class="cap-num">05</span><h3>UX Design Review</h3></div><span class="cap-year">2025</span></div>
+      <div class="ptabs">
+        <input class="s" type="radio" name="UXrvw" id="UXrvw-s">
+        <input class="p" type="radio" name="UXrvw" id="UXrvw-p" checked>
+        <div class="ptab-btns">
+          <label class="s-l" for="UXrvw-s">Story</label>
+          <label class="p-l" for="UXrvw-p">The Product</label>
+        </div>
+        <div class="ppanel p-story"><p>Despite its massive footprint across Central Java and DIY, Bank Jateng's digital interface felt slightly behind modern competitors. In this UI/UX review, I modernized the visual language and restructured the transaction flow—proposing features designed to make daily transactions up to 20% faster. I also optimized the placement for campaigns and latest news, ensuring users stay informed without disrupting their core banking experience. My review can be found <a href="https://drive.google.com/file/d/1tpx141hL3ahqcYnBaLGF28dO5VavRaWs/view" target="_blank" rel="noopener noreferrer">here</a></p></div>
+        <div class="ppanel p-prod"><dl class="pfacts">
+          <div><dt>Role</dt><dd>UX Designer</dd></div>
+          <div><dt>Deliverables</dt><dd>Phone</dd></div>
+          <div><dt>Tools</dt><dd>Figma</dd></div>
+          <div><dt>Result</dt><dd> 20% faster transactions • Modernized UI layout <a href="https://www.figma.com/proto/qalXRBhqVBlUyxx68KuW66/Recreate-Bima-Monile?node-id=20-110&t=4RQjx0OQgYxR5hRc-1&starting-point-node-id=20%3A110" target="_blank" rel="noopener noreferrer">can be found here</a></dd></div>
+        </dl></div>
+      </div>
+    </article>
+
+    <article class="project wide" data-rv>
+      <div class="frame"><img class="project-image" src="Football Apps.webp" alt="Pudra Fanki in his design studio"></div>
+      <div class="cap"><div class="cap-l"><span class="cap-num">06</span><h3>Football Apps</h3></div><span class="cap-year">2025</span></div>
+      <div class="ptabs">
+        <input class="s" type="radio" name="Ftblapp" id="Ftblapp-s">
+        <input class="p" type="radio" name="Ftblapp" id="Ftblapp-p" checked>
+        <div class="ptab-btns">
+          <label class="s-l" for="Ftblapp-s">Story</label>
+          <label class="p-l" for="Ftblapp-p">The Product</label>
+        </div>
+        <div class="ppanel p-story"><p>A 2025 bootcamp project driven by the "Support Your Local Team" campaign. Recognizing that Liga 4 Indonesia fans often struggle to find reliable match schedules, I designed this app to bring local clubs closer to their supporters. It serves as a dedicated digital space providing accessible match updates and strengthening the bond between the team and its community. My review can be found <a href="https://www.canva.com/design/DAG2AcZu6-U/Ng5H6KJg4Vcb8Q-4x-i-CA/view?utm_content=DAG2AcZu6-U&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h535238b9b8" target="_blank" rel="noopener noreferrer">here</a></p></div>
+        <div class="ppanel p-prod"><dl class="pfacts">
+          <div><dt>Role</dt><dd>UIUX Designer</dd></div>
+          <div><dt>Deliverables</dt><dd>Phone</dd></div>
+          <div><dt>Tools</dt><dd>Figma</dd></div>
+          <div><dt>Result</dt><dd> 2025 Bootcamp Project • Fan engagement focus</a></dd></div>
+        </dl></div>
+      </div>
+    </article>
+
+    <article class="project wide" data-rv>
+      <div class="frame"><img class="project-image" src="MCI WEB.webp" alt="Pudra Fanki in his design studio"></div>
+      <div class="cap"><div class="cap-l"><span class="cap-num">07</span><h3>BPR HIK MCI's Website</h3></div><span class="cap-year">2025</span></div>
+      <div class="ptabs">
+        <input class="s" type="radio" name="MCI" id="MCI-s">
+        <input class="p" type="radio" name="MCI" id="MCI-p" checked>
+        <div class="ptab-btns">
+          <label class="s-l" for="MCI-s">Story</label>
+          <label class="p-l" for="MCI-p">The Product</label>
+        </div>
+        <div class="ppanel p-story"><p>The company's original website was underperforming and struggled with strict financial publication regulations. Through extensive discussions and design iterations, I completely revamped the platform. The new site not only ensures full regulatory compliance but also introduces structured news placements and a direct Click-to-WhatsApp (CTWA) channel. Post-launch, regulatory issues were entirely resolved, and the site now drives consistent product inquiries and seamless customer support.</a></p></div>
+        <div class="ppanel p-prod"><dl class="pfacts">
+          <div><dt>Role</dt><dd>UIUX Designer</dd></div>
+          <div><dt>Deliverables</dt><dd>Personal Computer and Phone</dd></div>
+          <div><dt>Tools</dt><dd>Figma</dd></div>
+          <div><dt>Result</dt><dd> <a href="https://bprshikmciyk.co.id" target="_blank" rel="noopener noreferrer">bprshikmci.co.id</a></dd></div>
+        </dl></div>
+      </div>
+    </article>
+
+
+  </section>
+  <a class="next" href="#graphic-design"><span class="wrap">
+    <span class="label">Next discipline, 02</span>
+    <span class="next-name">Graphic Design<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span></span></a>
+</section>
+
+<!-- ================= GRAPHIC DESIGN ================= -->
+<section class="page" id="graphic-design">
+  <div class="page-head wrap">
+    <a class="crumb" href="#portfolio" data-rv><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg> All work</a>
+    <p class="label ph-eyebrow" data-rv style="--d:.05s">(02 / 04 / Graphic Design)</p>
+    <h1 class="ph-title"><span class="mask"><span class="mask-in">Graphic Design</span></span>
+    <span class="mask"><span class="mask-in"><em>from print to digital presence</em></span></span></h1>
+    <p class="ph-sub" data-rv style="--d:.1s">End-to-end graphic design solutions spanning editorial print, digital platforms, and social media campaigns. Built to remain consistent and impactful across every medium.</p>
+    <dl class="cat-meta" data-rv style="--d:.15s">
+      <div><dt>Services</dt><dd>Identity · Social Media · Marketing Toolkit</dd></div>
+      <div><dt>Tools</dt><dd>Photoshop · Canva · Illustrator</dd></div>
+      <div><dt>Timeline</dt><dd>2021 to present</dd></div>
+    </dl>
+  </div>
+  <section class="projects wrap">
+
+    <article class="project wide" data-rv>
+      <div class="frame"><img class="project-image" src="Sosmed Proj.webp" alt="Pudra Fanki in his design studio"></div>
+      <div class="cap"><div class="cap-l"><span class="cap-num">01</span><h3>Social Media Campaign</h3></div><span class="cap-year">2021 - 2026</span></div>
+      <div class="ptabs">
+        <input class="s" type="radio" name="socmed" id="socmed-s">
+        <input class="p" type="radio" name="socmed" id="socmed-p" checked>
+        <div class="ptab-btns">
+          <label class="s-l" for="socmed-s">Story</label>
+        </div>
+        <div class="ppanel p-prod"><dl class="pfacts">
+          <div><dt>Role</dt><dd>Graphic Designer</dd></div>
+          <div><dt>Deliverables</dt><dd>Instagram</dd></div>
+          <div><dt>Tools</dt><dd>Canva / Photoshop</dd></div>
+          <div><dt>Result</dt><dd>Better content formatting • Improved engagement</a></dd></div>
+        </dl></div>
+      </div>
+    </article>
+
+
+        <article class="project wide" data-rv>
+      <div class="frame"><img class="project-image" src="Onlinecampaign.webp" alt="Pudra Fanki in his design studio"></div>
+      <div class="cap"><div class="cap-l"><span class="cap-num">02</span><h3>Internal Communication</h3></div><span class="cap-year">2022</span></div>
+      <div class="ptabs">
+        <input class="s" type="radio" name="olcampaign" id="olcampaign-s">
+        <input class="p" type="radio" name="olcampaign" id="olcampaign-p" checked>
+        <div class="ptab-btns">
+          <label class="s-l" for="olcampaign-s">Story</label>
+        </div>
+        <div class="ppanel p-prod"><dl class="pfacts">
+          <div><dt>Role</dt><dd>Graphic Designer</dd></div>
+          <div><dt>Deliverables</dt><dd>Internal Campaign Materials</dd></div>
+          <div><dt>Tools</dt><dd>Canva / Photoshop</dd></div>
+          <div><dt>Result</dt><dd>High employee engagement • Clear internal communication</a></dd></div>
+        </dl></div>
+      </div>
+    </article>
+
+
+
+            <article class="project wide" data-rv>
+      <div class="frame"><img class="project-image" src="flyer.webp" alt="Pudra Fanki in his design studio"></div>
+      <div class="cap"><div class="cap-l"><span class="cap-num">03</span><h3>Promotional Design</h3></div><span class="cap-year">2021 - 2026</span></div>
+      <div class="ptabs">
+        <input class="s" type="radio" name="flyer" id="flyer-s">
+        <input class="p" type="radio" name="flyer" id="flyer-p" checked>
+        <div class="ptab-btns">
+          <label class="s-l" for="flyer-s">Story</label>
+        </div>
+        <div class="ppanel p-prod"><dl class="pfacts">
+          <div><dt>Role</dt><dd>Graphic Designer</dd></div>
+          <div><dt>Deliverables</dt><dd>Flyer, Brochure, Banner, etc</dd></div>
+          <div><dt>Tools</dt><dd>Photoshop</dd></div>
+          <div><dt>Result</dt><dd>Effective local promotion • Ready-to-print materials</a></dd></div>
+        </dl></div>
+      </div>
+    </article>
+
+
+            <article class="project wide" data-rv>
+      <div class="frame"><img class="project-image" src="infogrph.webp" alt="Pudra Fanki in his design studio"></div>
+      <div class="cap"><div class="cap-l"><span class="cap-num">04</span><h3>Infographic</h3></div><span class="cap-year">2021 - 2026</span></div>
+      <div class="ptabs">
+        <input class="s" type="radio" name="infogrph" id="infogrph-s">
+        <input class="p" type="radio" name="infogrph" id="infogrph-p" checked>
+        <div class="ptab-btns">
+          <label class="s-l" for="infogrph-s">Story</label>
+        </div>
+        <div class="ppanel p-prod"><dl class="pfacts">
+          <div><dt>Role</dt><dd>Graphic Designer</dd></div>
+          <div><dt>Deliverables</dt><dd>Infographic</dd></div>
+          <div><dt>Tools</dt><dd>Photoshop</dd></div>
+          <div><dt>Result</dt><dd>Clear internal communication • Visual representation of complex information</a></dd></div>
+        </dl></div>
+      </div>
+    </article>
+
+
+
+      <article class="project wide" data-rv>
+      <div class="frame"><img class="project-image" src="branding.webp" alt="Pudra Fanki in his design studio"></div>
+      <div class="cap"><div class="cap-l"><span class="cap-num">05</span><h3>Branding Toolkit</h3></div><span class="cap-year">2025 - 2026</span></div>
+      <div class="ptabs">
+        <input class="s" type="radio" name="brndg" id="brndg-s">
+        <input class="p" type="radio" name="brndg" id="brndg-p" checked>
+        <div class="ptab-btns">
+          <label class="s-l" for="brndg-s">Story</label>
+        </div>
+        <div class="ppanel p-prod"><dl class="pfacts">
+          <div><dt>Role</dt><dd>Graphic Designer</dd></div>
+          <div><dt>Deliverables</dt><dd>Printing Materials</dd></div>
+          <div><dt>Tools</dt><dd>Illustrator / Photoshop</dd></div>
+          <div><dt>Result</dt><dd>Tangible brand assets • Consistent merchandise design</a></dd></div>
+        </dl></div>
+      </div>
+    </article>
+
+
+  </section>
+  <a class="next" href="#video-editing"><span class="wrap">
+    <span class="label">Next discipline, 03</span>
+    <span class="next-name">Video Editing<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span></span></a>
+</section>
+
+<!-- ================= VIDEO EDITING ================= -->
+<section class="page" id="video-editing">
+  <div class="page-head wrap">
+    <a class="crumb" href="#portfolio" data-rv><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg> All work</a>
+    <p class="label ph-eyebrow" data-rv style="--d:.05s">(03 / 04 / Video Editing)</p>
+    <h1 class="ph-title"><span class="mask"><span class="mask-in">Video Editing</span></span>
+    <span class="mask"><span class="mask-in"><em>the story is in the cut</em></span></span></h1>
+    <p class="ph-sub" data-rv style="--d:.1s">Motion-driven editing for SMEs, corporate brands, and digital campaigns. Combining precise cuts with dynamic graphics—if a keyframe doesn't add value to the story, it doesn't make the cut.</p>
+    <dl class="cat-meta" data-rv style="--d:.15s">
+      <div><dt>Services</dt><dd>Motion Graphics · Music · Brand</dd></div>
+      <div><dt>Tools</dt><dd>Premiere Pro · After Effects</dd></div>
+      <div><dt>Timeline</dt><dd>2020 to present</dd></div>
+    </dl>
+  </div>
+  <section class="projects wrap">
+
+      <article class="project wide" data-rv>
+      <div class="frame"><img class="project-image" src="Music Video 2.webp" alt="Pudra Fanki in his design studio"></div>
+      <div class="cap"><div class="cap-l"><span class="cap-num">01</span><h3>Music Video Project</h3></div><span class="cap-year">2023</span></div>
+      <div class="ptabs">
+        <input class="s" type="radio" name="mv2" id="mv2-s">
+        <input class="p" type="radio" name="mv2" id="mv2-p" checked>
+        <div class="ptab-btns">
+          <label class="p-l" for="mv2-p">Result</label>
+        </div>
+        <div class="ppanel p-prod"><dl class="pfacts">
+          <div><dt>Role</dt><dd>Videographer</dd></div>
+          <div><dt>Deliverables</dt><dd>Music Video</dd></div>
+          <div><dt>Tools</dt><dd>Premiere Pro</dd></div>
+          <div><dt>Result</dt><dd><a href="https://www.youtube.com/watch?v=1iSxC4yp6wI" target="_blank" rel="noopener noreferrer">View the project</a></dd></div>
+        </dl></div>
+      </div>
+    </article>
+
+
+
+      <article class="project wide" data-rv>
+      <div class="frame"><img class="project-image" src="motion.webp" alt="Pudra Fanki in his design studio"></div>
+      <div class="cap"><div class="cap-l"><span class="cap-num">02</span><h3>Motion Graphics Project</h3></div><span class="cap-year">2022</span></div>
+      <div class="ptabs">
+        <input class="s" type="radio" name="motion" id="motion-s">
+        <input class="p" type="radio" name="motion" id="motion-p" checked>
+        <div class="ptab-btns">
+          <label class="p-l" for="motion-p">Result</label>
+        </div>
+        <div class="ppanel p-prod"><dl class="pfacts">
+          <div><dt>Role</dt><dd>Motion Designer</dd></div>
+          <div><dt>Deliverables</dt><dd>Mograph</dd></div>
+          <div><dt>Tools</dt><dd>Premiere Pro</dd></div>
+          <div><dt>Result</dt><dd><a href="https://drive.google.com/file/d/1lYlMG8i92CZlrtI3L3KDEyxxV3_UrwgT/view" target="_blank" rel="noopener noreferrer">View the project</a></dd></div>
+        </dl></div>
+      </div>
+    </article>
+
+
+      <article class="project wide" data-rv>
+      <div class="frame"><img class="project-image" src="logo___paragon_1756880734-2.webp" alt="Pudra Fanki in his design studio"></div>
+      <div class="cap"><div class="cap-l"><span class="cap-num">03</span><h3>After Movie Project</h3></div><span class="cap-year">2021</span></div>
+      <div class="ptabs">
+        <input class="s" type="radio" name="aftermovie" id="aftermovie-s">
+        <input class="p" type="radio" name="aftermovie" id="aftermovie-p" checked>
+        <div class="ptab-btns">
+          <label class="p-l" for="aftermovie-p">Result</label>
+        </div>
+        <div class="ppanel p-prod"><dl class="pfacts">
+          <div><dt>Role</dt><dd>Videographer</dd></div>
+          <div><dt>Deliverables</dt><dd>Video Content</dd></div>
+          <div><dt>Tools</dt><dd>Premiere Pro</dd></div>
+          <div><dt>Result</dt><dd><a href="https://drive.google.com/file/d/1tDll79tGsF-wbWQB7NmzK7f7wSbFitFV/view" target="_blank" rel="noopener noreferrer">View the project</a></dd></div>
+        </dl></div>
+      </div>
+    </article>
+
+      <article class="project wide" data-rv>
+      <div class="frame"><img class="project-image" src="Music Video 1.webp" alt="Pudra Fanki in his design studio"></div>
+      <div class="cap"><div class="cap-l"><span class="cap-num">04</span><h3>Music Video Project</h3></div><span class="cap-year">2021</span></div>
+      <div class="ptabs">
+        <input class="s" type="radio" name="mv1" id="mv1-s">
+        <input class="p" type="radio" name="mv1" id="mv1-p" checked>
+        <div class="ptab-btns">
+          <label class="p-l" for="mv1-p">Result</label>
+        </div>
+        <div class="ppanel p-prod"><dl class="pfacts">
+          <div><dt>Role</dt><dd>Videographer</dd></div>
+          <div><dt>Deliverables</dt><dd>Music Video</dd></div>
+          <div><dt>Tools</dt><dd>Premiere Pro</dd></div>
+          <div><dt>Result</dt><dd><a href="https://drive.google.com/file/d/16eLUTFrc3eEOqlVHPg4d9P57pcCsZ_fM/view" target="_blank" rel="noopener noreferrer">View the project</a></dd></div>
+        </dl></div>
+      </div>
+    </article>
+
+
+          <article class="project wide" data-rv>
+      <div class="frame"><img class="project-image" src="Testimoni.webp" alt="Pudra Fanki in his design studio"></div>
+      <div class="cap"><div class="cap-l"><span class="cap-num">05</span><h3>Testimonial Video</h3></div><span class="cap-year">2020</span></div>
+      <div class="ptabs">
+        <input class="s" type="radio" name="testi" id="testi-s">
+        <input class="p" type="radio" name="testi" id="testi-p" checked>
+        <div class="ptab-btns">
+          <label class="p-l" for="testi-p">Result</label>
+        </div>
+        <div class="ppanel p-prod"><dl class="pfacts">
+          <div><dt>Role</dt><dd>Videographer</dd></div>
+          <div><dt>Deliverables</dt><dd>Testimonial Video</dd></div>
+          <div><dt>Tools</dt><dd>Premiere Pro</dd></div>
+          <div><dt>Result</dt><dd><a href="https://www.youtube.com/watch?v=o3piz_DG0ao" target="_blank" rel="noopener noreferrer">View the project</a></dd></div>
+        </dl></div>
+      </div>
+    </article>
+
+
+  </section>
+</section>
+
+<!-- ================= HOME (last in DOM so :target can hide it) ================= -->
+<section class="page" id="home">
+  <div class="hero">
+    <div class="wrap hero-meta">
+      <span class="label" data-rv>My Work, 2017 to now</span>
+      <span class="label" data-rv style="--d:.1s">Yogyakarta, ID · 110°23′29″ E, 7°48′02″ S </span>
+    </div>
+    <div class="hero-stage">
+      <h1 class="hero-h">
+        <span class="mask"><span class="mask-in h-l1"><em>My</em><svg class="star spin" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5v21M1.5 12h21M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/></svg></span></span>
+        <span class="mask"><span class="mask-in h-l2">Portfolio</span></span>
+      </h1>
+      <div class="float" id="float" aria-hidden="true">
+        <div class="float-inner" data-rv style="--d:.45s">
+          <span class="tape"></span>
+          <div class="plate plate--portrait">
+            <span class="pl-ring"></span>
+            <img src="photo.webp" alt="Pudra Fanki portrait" style="display:block;width:100%;height:100%;object-fit:cover;" />
+          </div>
+          <span class="float-note"><svg viewBox="0 0 60 40"><path d="M6 34C18 28 34 18 46 6m0 0l-10 2m10-2l-2 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>hi, that&rsquo;s me</span>
+        </div>
+      </div>
+    </div>
+    <div class="wrap hero-bottom">
+      <p class="hero-intro" data-rv style="--d:.2s">I&rsquo;m <strong>Pudra Fanki</strong>. I elevate SMEs through purposeful design and visual storytelling. I offer over five years of expertise in graphic design, video production, and comprehensive creative solutions to solve your unique business challenges and drive growth.</p>
+      <div class="hero-cta" data-rv style="--d:.32s">
+        <a class="btn btn--solid" href="#portfolio"><span>View the portfolio</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+        <a class="btn" href="#contact"><span>Get in touch</span></a>
+      </div>
+    </div>
+    <div class="marquee" aria-hidden="true"><div class="mq-track">
+      <div class="mq-group">
+        <span class="mq-item">UI/UX Design<svg class="star" viewBox="0 0 24 24"><path d="M12 1.5v21M1.5 12h21M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/></svg></span>
+        <span class="mq-item">Graphic Design<svg class="star" viewBox="0 0 24 24"><path d="M12 1.5v21M1.5 12h21M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/></svg></span>
+        <span class="mq-item">Video Editing<svg class="star" viewBox="0 0 24 24"><path d="M12 1.5v21M1.5 12h21M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/></svg></span>
+        <span class="mq-item">Brand Identity<svg class="star" viewBox="0 0 24 24"><path d="M12 1.5v21M1.5 12h21M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/></svg></span>
+        <span class="mq-item">AI Enthusiast<svg class="star" viewBox="0 0 24 24"><path d="M12 1.5v21M1.5 12h21M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/></svg></span>
+      </div>
+      <div class="mq-group">
+        <span class="mq-item">UI/UX Design<svg class="star" viewBox="0 0 24 24"><path d="M12 1.5v21M1.5 12h21M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/></svg></span>
+        <span class="mq-item">Graphic Design<svg class="star" viewBox="0 0 24 24"><path d="M12 1.5v21M1.5 12h21M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/></svg></span>
+        <span class="mq-item">Video Editing<svg class="star" viewBox="0 0 24 24"><path d="M12 1.5v21M1.5 12h21M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/></svg></span>
+        <span class="mq-item">Brand Identity<svg class="star" viewBox="0 0 24 24"><path d="M12 1.5v21M1.5 12h21M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/></svg></span>
+        <span class="mq-item">AI Enthusiast<svg class="star" viewBox="0 0 24 24"><path d="M12 1.5v21M1.5 12h21M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/></svg></span>
+      </div>
+    </div></div>
+  </div>
+</section>
+</main>
+
+<footer class="footer"><div class="wrap">
+  <div class="foot-grid">
+    <div class="foot-brand"><div class="foot-logo">Pudra Fanki<svg class="star spin" viewBox="0 0 24 24"><path d="M12 1.5v21M1.5 12h21M4.6 4.6l14.8 14.8M19.4 4.6L4.6 19.4"/></svg></div>
+      <p>I elevate SMEs through purposeful design and visual storytelling. Over five years of expertise in graphic design, video production, and comprehensive creative solutions to solve your unique business challenges and drive growth.</p></div>
+    <div class="foot-col"><span class="label">Menu</span>
+      <a href="#home">Home</a><a href="#about">About</a><a href="#portfolio">Portfolio</a><a href="#contact">Contact</a></div>
+    <div class="foot-col"><span class="label">Elsewhere</span>
+      <a href="https://wa.me/628988880631" target="_blank" rel="noopener">WhatsApp <svg class="icon" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+      <a href="https://www.linkedin.com/in/pudra-fanki/" target="_blank" rel="noopener">LinkedIn <svg class="icon" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></a></div>
+    <div class="foot-col"><span class="label">Say hi</span>
+      <a class="foot-mail" href="mailto:pudra.fanki@gmail.com">pudra.fanki@gmail.com</a>
+      <p style="margin-top:.9rem;font-size:.82rem;color:var(--muted)">Local time, <span data-clock>--:--:--</span></p>
+      <button class="totop" id="totop">Back to top <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+  </div>
+  <div class="foot-bottom"><span>© 2025 Pudra Fanki. Designed &amp; built by hand.</span><span>Build v7 · antislop + animation review pass</span></div>
+</div></footer>
+
+<div id="toasts" aria-live="polite"></div>
+
+<script>
+/* ============ SAFETY NET ============ */
+document.documentElement.classList.add('js');
+window.addEventListener('error', function(){
+  document.documentElement.classList.remove('js');
+  var w = document.getElementById('wipe');
+  if(w) w.classList.remove('show');
+  document.body.classList.remove('locked');
+});
+
+/* ================= HELPERS ================= */
+const $  = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+
+/* ============ CLEAN-URL SUPPORT (for when this is hosted) ============
+   If a host serves index.html for every path (see rewrite rules in
+   the deployment notes), /uiux, /about etc. route automatically. */
+(function(){
+  const seg = location.pathname.replace(/\/+$/,'').split('/').pop().toLowerCase().replace(/\.html?$/,'');
+  const MAP = {'uiux':'ui-ux','ui-ux':'ui-ux','graphicdesign':'graphic-design','graphic-design':'graphic-design',
+               'videoediting':'video-editing','video-editing':'video-editing',
+               'about':'about','portfolio':'portfolio','contact':'contact'};
+  if(MAP[seg]) history.replaceState(null,'','#'+MAP[seg]);
+})();
+
+/* ================= PAGE NAVIGATION ================= */
+const PAGE_IDS = ['home','about','portfolio','contact','ui-ux','graphic-design','video-editing'];
+const NAVMAP   = {home:'home', about:'about', portfolio:'portfolio', contact:'contact',
+                  'ui-ux':'portfolio', 'graphic-design':'portfolio', 'video-editing':'portfolio'};
+const LABELS   = {home:'My Portfolio', about:'About', portfolio:'The Work', contact:'Contact',
+                  'ui-ux':'UI/UX', 'graphic-design':'Graphic Design', 'video-editing':'Video Editing'};
+const wipe = $('#wipe'), wipeLabel = $('#wipeLabel');
+let wipeTimer = null;
+
+function currentId(){ const h = location.hash.replace('#',''); return PAGE_IDS.includes(h) ? h : 'home'; }
+function setNav(){
+  const key = NAVMAP[currentId()];
+  $$('[data-nav]').forEach(a => a.classList.toggle('on', a.dataset.nav === key));
+}
+function applyLock(){
+  const onHome = currentId() === 'home';
+  document.body.classList.toggle('locked', onHome);
+  if(onHome) window.scrollTo(0,0);
+}
+document.addEventListener('click', e=>{
+  const a = e.target.closest('a[href^="#"]');
+  if(!a) return;
+  document.body.classList.remove('menu-open');
+  const id = a.getAttribute('href').slice(1);
+  if(!PAGE_IDS.includes(id)) return;
+  const cur = currentId();
+  if(id === cur){ e.preventDefault(); window.scrollTo({top:0, behavior:'smooth'}); return; }
+  e.preventDefault();
+  document.body.classList.remove('locked');
+  wipeLabel.textContent = LABELS[id] || 'My Portfolio';
+  wipe.classList.remove('top');
+  wipe.classList.add('show');
+  clearTimeout(wipeTimer);
+  wipeTimer = setTimeout(()=>{
+    location.hash = id;
+    setNav(); applyLock(); window.scrollTo(0,0);
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      wipe.classList.add('top');
+      setTimeout(()=>wipe.classList.remove('show','top'), 70);
+    }));
+  }, 620);
+});
+window.addEventListener('hashchange', ()=>{ setNav(); applyLock(); window.scrollTo(0,0); });
+
+/* ================= SCROLL REVEALS ================= */
+function initReveals(){
+  if(!('IntersectionObserver' in window)){ document.documentElement.classList.remove('js'); return; }
+  const io = new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('rv-in'); io.unobserve(e.target); }
+  }), {threshold:.12, rootMargin:'0px 0px -6% 0px'});
+  $$('[data-rv]').forEach(el=>io.observe(el));
+}
+
+/* ================= PORTFOLIO CARDS: one open at a time ================= */
+function initCards(){
+  const cards = $$('.pgrid details');
+  cards.forEach(d=>{
+    d.addEventListener('toggle', ()=>{
+      if(d.open) cards.forEach(o=>{ if(o !== d) o.open = false; });
+    });
+  });
+}
+
+/* ================= CONTACT FORM ================= */
+function initForm(){
+  const form = $('#cform'); if(!form) return;
+  form.addEventListener('submit', e=>{
+    e.preventDefault();
+    const name = $('#in-name'), email = $('#in-email'), msg = $('#in-msg');
+    let ok = true;
+    const check = (cond, id) => { $(id).classList.toggle('err', !cond); if(!cond) ok = false; };
+    check(name.value.trim().length > 1, '#f-name');
+    check(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim()), '#f-email');
+    check(msg.value.trim().length > 9, '#f-msg');
+    if(!ok){ toast('Almost there, a couple of fields need love.'); return; }
+    const btn = $('#sendBtn'), span = btn.querySelector('span');
+    btn.disabled = true; span.textContent = 'Sending…';
+    setTimeout(()=>{
+      toast('Message sent. I\u2019ll reply within 48 hours.');
+      span.textContent = 'Sent, thank you';
+      form.reset();
+      setTimeout(()=>{ span.textContent = 'Send it'; btn.disabled = false; }, 2600);
+    }, 900);
+  });
+  form.querySelectorAll('input,textarea').forEach(el=>
+    el.addEventListener('input', ()=> el.closest('.field')?.classList.remove('err')));
+}
+
+/* ================= TOAST + COPY ================= */
+function toast(msg){
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.innerHTML = '<svg class="icon" viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg><span>'+msg+'</span>';
+  $('#toasts').appendChild(t);
+  setTimeout(()=>t.classList.add('show'), 20);
+  setTimeout(()=>{ t.classList.remove('show'); setTimeout(()=>t.remove(), 450); }, 3400);
+}
+document.addEventListener('click', e=>{
+  const c = e.target.closest('[data-copy]');
+  if(c){ navigator.clipboard?.writeText(c.dataset.copy).then(()=>toast('Email copied to clipboard.'))
+    .catch(()=>toast('Copy failed, but the address is right there.')); }
+});
+
+/* ================= FLOATING PORTRAIT (home only, pointer:fine gated) ================= */
+const FINE = matchMedia('(hover: hover) and (pointer: fine)').matches;
+const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let mx = innerWidth/2, my = innerHeight/2;
+if(FINE && !REDUCED) addEventListener('pointermove', e=>{ mx = e.clientX; my = e.clientY; });
+
+let fx = 0, fy = 0, fr = 0, ix = 0, iy = 0;
+(function loop(t){
+  const fl = $('#float');
+  if(fl && FINE && !REDUCED && currentId() === 'home'){
+    const nx = mx/innerWidth - .5, ny = my/innerHeight - .5;
+    fx += (nx*90 - fx)*.06; fy += (ny*70 - fy)*.06; fr += (nx*6 - fr)*.06;
+    ix += (nx*-14 - ix)*.08; iy += (ny*-10 - iy)*.08;
+    fl.style.transform = 'translate3d('+fx+'px,'+(fy + Math.sin(t/900)*7)+'px,0) rotate('+fr+'deg)';
+    const pl = fl.querySelector('.plate');
+    if(pl) pl.style.transform = 'translate3d('+(ix*.5)+'px,'+(iy*.5)+'px,0)';
+  }
+  requestAnimationFrame(loop);
+})(0);
+
+/* ================= CHROME ================= */
+addEventListener('scroll', ()=> $('#hdr').classList.toggle('scrolled', scrollY > 12), {passive:true});
+ $('#burger').addEventListener('click', ()=> document.body.classList.toggle('menu-open'));
+document.addEventListener('keydown', e=>{ if(e.key === 'Escape') document.body.classList.remove('menu-open'); });
+document.addEventListener('click', e=>{ if(e.target.closest('#totop')) window.scrollTo({top:0, behavior:'smooth'}); });
+
+const fmt = new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit',timeZone:'Asia/Jakarta'});
+setInterval(()=>{ try{ const s = fmt.format(new Date()); $$('[data-clock]').forEach(el=>el.textContent = s); }catch(_){} }, 1000);
+
+/* ================= BOOT ================= */
+setNav();
+applyLock();
+initReveals();
+initCards();
+initForm();
+</script>
 </body>
-
 </html>
