@@ -307,22 +307,23 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
 .ph-title em{color:var(--accent)}
 .ph-sub{margin-top:1.6rem;font-size:.98rem;line-height:1.7;color:#4B443B;max-width:52ch}
 
-.about-grid{display:grid;grid-template-columns:1fr;gap:0;align-items:start;margin-top:3.5rem;width:100%;max-width:none}
+.about-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:0;align-items:start;margin-top:3.5rem;width:100%;max-width:none}
 .about-lead{font:420 clamp(1.35rem,2.4vw,1.75rem)/1.45 var(--serif);width:100%;max-width:none;margin:0 0 2rem}
 .about-lead em{color:var(--accent)}
 .about-copy{margin-top:0;font-size:.95rem;line-height:1.75;color:#4B443B;width:100%;max-width:none;display:grid;gap:1rem}
-.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:2.2rem;border-top:1px solid var(--line);border-bottom:1px solid var(--line);width:min(1200px, calc(100% - 2rem));max-width:1200px;margin-inline:auto;padding-inline:0}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:2.2rem;border-top:1px solid var(--line);border-bottom:1px solid var(--line);width:100%;padding-inline:0}
 .stat{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:9rem;padding:1.2rem 1.4rem;border-left:1px solid var(--line);text-align:center}
 .stat:first-child{border-left:0;padding-left:1.4rem}
 .stat b{display:block;font:500 clamp(2.4rem,4vw,6rem)/1 var(--serif);letter-spacing:-.04em;color:var(--ink)}
 .stat span{display:block;margin-top:.7rem;font:600 .68rem var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
-.sec{padding:clamp(4.5rem,9vw,8rem) 0;width:min(1200px, calc(100% - 2rem));max-width:1200px;margin:0 auto;padding-inline:clamp(1rem,2vw,2rem)}
+.sec{padding:clamp(4.5rem,9vw,8rem) 0;width:auto;margin:0}
 .xp-row{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:1.5rem;padding:1.15rem 0;border-top:1px solid var(--line-soft);align-items:baseline}
 .xp-row:last-child{border-bottom:1px solid var(--line-soft)}
 .xp-years{font:600 .72rem var(--sans);letter-spacing:.1em;color:var(--accent)}
 .xp-role{font:460 1.15rem/1.2 var(--serif)}
 .xp-co{font-size:.82rem;color:var(--muted)}
 .tags{display:flex;flex-wrap:wrap;gap:.6rem}
+.resume-cta{display:flex;flex-wrap:wrap;gap:.85rem;margin-top:1.6rem}
 .tag{border:1px solid var(--line);border-radius:99px;padding:.5rem 1rem;font:500 .74rem/1 var(--sans);letter-spacing:.05em;transition:background .2s var(--easeOut),color .2s var(--easeOut),border-color .2s var(--easeOut)}
 .tag:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 .manif{border-top:1px solid var(--line);margin-top:clamp(3.5rem,7vw,6rem);padding-top:clamp(3rem,6vw,5rem);display:flex;flex-direction:column;align-items:center;gap:1.8rem;text-align:center}
@@ -431,7 +432,7 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
   .h-l2{white-space:nowrap;font-size:clamp(3rem,12vw,7rem)}
   .hero-bottom{flex-direction:column;align-items:flex-start;gap:1.4rem;padding-bottom:1.6rem}
   .page-head{padding-top:8rem}
-  .about-grid,.contact-grid{grid-template-columns:1fr}
+  .about-grid,.contact-grid{grid-template-columns:minmax(0,1fr)}
   .cat-meta{grid-template-columns:1fr;gap:1.1rem}
   .work-note{justify-content:flex-start}
   .work-note p{text-align:left}
@@ -636,6 +637,10 @@ body.menu-open .m-link:nth-child(4){transition-delay:.36s}
         </div>
       </div>
       <span class="label" data-rv style="margin-top:1.2rem">Message me for freelance project details</span>
+      <div class="resume-cta" data-rv style="--d:.05s">
+        <a class="btn btn--solid" href="Pudra-Fanki-Amrillah-Resume.pdf" target="_blank" rel="noopener noreferrer"><span>View resume</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+        <a class="btn" href="Pudra-Fanki-Amrillah-Resume.pdf" download><span>Download PDF</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg></a>
+      </div>
     </div>
     </div>
   </section>
